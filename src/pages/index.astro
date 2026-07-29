@@ -1,0 +1,211 @@
+---
+// URL conservée : /
+// WordPress → title « Couvreur à Méréville dans le Mérévilllois M. RIBARD »
+// (coquille « Mérévilllois », 3 L) et DEUX H1 sur la page. Corrigé ici.
+//
+// Règles éditoriales client (28/07/2026) :
+//  · AUCUN eyebrow / sur-titre sur le site (classe .surtitre supprimée).
+//  · Toujours « dans l'Essonne », jamais « en Essonne ».
+//  · Angle : problème du client d'abord, puis professionnalisme, savoir-faire
+//    et expérience de l'artisan. On n'écrit pas ce qui va de soi pour un
+//    couvreur (monter sur le toit, ne pas sous-traiter, laisser propre).
+//  · Mots-clés travaillés une fois chacun, sans triplette ni empilement :
+//    couvreur Essonne · entreprise de couverture dans l'Essonne · couvreur 91
+//    · artisan couvreur · couvreur zingueur · Méréville.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaDevis from '../components/CtaDevis.astro';
+import AvisCarrousel from '../components/AvisCarrousel.astro';
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+import villes from '../data/villes.json';
+import reviews from '../data/reviews.json';
+import IconeMobile from '../components/IconeMobile.astro';
+import PastilleFleche from '../components/PastilleFleche.astro';
+
+const title = "Couvreur dans l'Essonne (91) — Marvin Ribard, Méréville";
+const description =
+  "Entretien, réparation et rénovation de toiture dans l'Essonne par un artisan couvreur zingueur installé à Méréville. Devis gratuit, 18 avis Google 5 étoiles.";
+
+---
+<BaseLayout title={title} description={description}>
+  <section class="hero">
+    <div class="conteneur hero__grille duo">
+      <div class="hero__texte">
+        <h1>
+          Entreprise de couverture dans l'Essonne (91)
+          <span class="hero__signature">Marvin Ribard</span>
+        </h1>
+
+        <p class="hero__accroche">
+          Vous rencontrez un problème avec votre toiture et vous souhaitez
+          l'intervention d'un professionnel : une fuite à traiter, un toit à
+          entretenir, une couverture à refaire.
+          {' '}<strong>Artisan couvreur zingueur</strong> installé à
+          {' '}{ent.adresse.villeUsuelle}, je suis à votre service pour réaliser
+          tous vos travaux de couverture dans l'<strong>Essonne (91)</strong>.
+        </p>
+
+        <ul class="hero__liste">
+          <li>Spécialiste de l'entretien de toiture : nettoyage, démoussage et traitement hydrofuge</li>
+          <li>Entretien et réparation de la zinguerie et des gouttières</li>
+          <li>Spécialiste de la tuile plate et de la tuile pays</li>
+        </ul>
+
+        <div class="hero__actions">
+          <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+            <IconeMobile />{ent.telephone}
+          </a>
+          <a href="/contact/" class="btn btn--contour-bleu btn--grand">
+            Demander un devis gratuit<PastilleFleche />
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        <figure class="hero__visuel">
+          <img
+            class="hero__photo"
+            src="/images/photos/bg-couvreurs-toiture.webp"
+            alt="Marvin Ribard, couvreur, au travail sur une toiture en tuiles dans l'Essonne"
+            width="950"
+            height="633"
+            fetchpriority="high"
+          />
+          <figcaption class="note-google-encart">
+            <span class="note-google-encart__ligne">
+              <svg class="note-google-encart__logo" viewBox="0 0 24 24" role="img" aria-label="Google">
+                <path fill="#4285F4" d="M23.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.87c2.27-2.09 3.56-5.17 3.56-8.87z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.96-1.08 7.94-2.91l-3.87-3a7.2 7.2 0 0 1-10.72-3.78H1.35v3.09A11.99 11.99 0 0 0 12 24z"/>
+                <path fill="#FBBC05" d="M5.35 14.31a7.2 7.2 0 0 1 0-4.6V6.62H1.35a12 12 0 0 0 0 10.77l4-3.08z"/>
+                <path fill="#EA4335" d="M12 4.77c1.77 0 3.35.61 4.6 1.8l3.43-3.43C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.35 6.62l4 3.09A7.2 7.2 0 0 1 12 4.77z"/>
+              </svg>
+              <span class="note-google-encart__etoiles" aria-hidden="true">★★★★★</span>
+            </span>
+            <span class="note-google-encart__texte">
+              Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google
+              {' · '}{reviews.nombre} avis
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="reassurance">
+    <ul class="reassurance__liste">
+      <li>Devis gratuit et détaillé</li>
+      <li>Réponse sous 48 h</li>
+      <li>{ent.horaires.libelle}</li>
+    </ul>
+  </section>
+
+  <AvisCarrousel
+    titre="Les avis de mes clients satisfaits de leur artisan couvreur du 91"
+    limite={9}
+  />
+
+  <!-- Section portrait de l'artisan.
+       Angle demandé par le client (29/07/2026) : sérieux, savoir-faire,
+       professionnalisme, et les 15 années d'expérience mises en avant.
+       C'est ici que se place le PREMIER lien vers /couvreur-45/ dans le flux
+       de la page — donc celui dont Google retient l'ancre. Ancre retenue :
+       « artisan couvreur dans le Loiret » (dernière du pool, voir
+       src/data/README-redaction-villes.md). Le lien de la section services,
+       plus bas, ne sert que la navigation. -->
+  <section class="section portrait">
+    <div class="conteneur duo">
+      <div class="portrait__texte">
+        <h2>Marvin Ribard, votre professionnel de la toiture dans l'Essonne</h2>
+        <p>
+          Quinze années passées sur les toits, cela donne un œil. Celui qui voit
+          si une couverture demande une reprise ponctuelle ou si elle arrive au
+          bout, si une trace au plafond vient d'un solin ou d'une noue, si une
+          charpente a travaillé ou si elle tient encore. C'est ce que j'apporte
+          avant tout : un diagnostic qui tient, et un devis qui ne bouge pas
+          en cours de chantier.
+        </p>
+        <p>
+          Tuile plate de pays, tuile mécanique, ardoise, zinc, bac acier : je
+          pose et je répare tous les matériaux de couverture, avec la zinguerie
+          qui va avec — noues, solins, abergements de cheminée, gouttières.
+          C'est là que se joue l'étanchéité d'un toit, bien plus que sur les
+          tuiles elles-mêmes, et c'est ce que quinze ans de métier apprennent
+          à regarder en premier.
+        </p>
+        <p>
+          Installé à {ent.adresse.villeUsuelle}, j'interviens dans tout le Sud
+          de l'<strong>Essonne (91)</strong>, dans l'<strong>Eure-et-Loir (28)</strong>,
+          et comme <a href="/couvreur-45/">artisan couvreur dans le Loiret</a>
+          sur le Nord du <strong>45</strong>. Une quarantaine de kilomètres
+          autour de {ent.adresse.villeUsuelle}, que je couvre à la journée.
+        </p>
+        <p>
+          Le sérieux, dans ce métier, se mesure à des choses simples : un devis
+          détaillé poste par poste plutôt qu'un prix global, un rendez-vous
+          tenu, un chantier annoncé pour une semaine qui dure une semaine. C'est
+          ce qui fait revenir les clients, et ce que disent les
+          {' '}{reviews.nombre} avis publiés sur ma fiche Google.
+        </p>
+      </div>
+
+      <div class="portrait__media">
+        <img
+          src="/images/photos/portrait-marvin-ribard.webp"
+          alt={`${ent.nomExploitant}, artisan couvreur à ${ent.adresse.villeUsuelle}, devant son véhicule d'intervention`}
+          width="646"
+          height="750"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="entete-section">
+        <h2 class="entete-section__chapeau">
+          Les services proposés par mon entreprise de couverture
+        </h2>
+      </div>
+
+      <p class="section__intro">
+        De la tuile cassée à la réfection complète d'un toit, voici les interventions
+        que je réalise chez les particuliers du 91.
+        {' '}<a href="/couvreur-45/">J'interviens également dans le Nord du Loiret</a>.
+      </p>
+
+      <div class="grille-services">
+        {services.filter((s) => s.actif).map((s) => (
+          <a class="carte carte-service" href={s.url91}>
+            <img src={s.image} alt={s.alt} width={s.imageWidth} height={s.imageHeight} loading="lazy" />
+            <div class="carte-service__corps">
+              <h3>{s.label}</h3>
+              <p>{s.accroche}</p>
+              <span class="carte-service__lien">{s.lien} →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="conteneur">
+      <h2>Ma zone d'intervention dans le 91 et le Nord du Loiret</h2>
+      <p>
+        Depuis {ent.adresse.villeUsuelle}, je me déplace dans un rayon d'environ
+        {' '}{ent.zone.rayonKm} km. Chaque commune a sa page, avec ses contraintes
+        locales — matériaux, urbanisme, secteurs protégés.
+      </p>
+
+      <ul class="nuage-villes">
+        {villes.map((v) => (
+          <li><a href={v.url}>Couvreur à {v.nom}</a></li>
+        ))}
+        <li><a href="/couvreur-45/couvreur-a-malesherbes-45330/">Couvreur à Malesherbes</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaDevis />
+</BaseLayout>

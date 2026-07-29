@@ -1,0 +1,202 @@
+---
+/**
+ * Corps d'une page service (« [prestation] dans l'Essonne / dans le Loiret »).
+ *
+ * Comme pour les pages villes, aucune chaîne rédactionnelle n'est écrite ici :
+ * tout vient de src/data/services-pages.json. Les versions Essonne et Loiret
+ * d'un même service y sont deux entrées DISTINCTES, rédigées séparément — le
+ * site WordPress avait des pages Loiret copiées à 90-97 % de leurs jumelles,
+ * c'est précisément ce qu'on répare.
+ *
+ * Règles rédactionnelles appliquées (profil couvreur du client) :
+ *   · aucun eyebrow, un bloc = un titre ;
+ *   · « dans l'Essonne » / « dans le Loiret », jamais « en » ;
+ *   · pas un mot sur la météo, l'architecture locale, la sécurité ni les
+ *     « méthodes » ; on décrit ce qui est fait, concrètement ;
+ *   · pas de promesse, pas de superlatif, première personne.
+ */
+import FilAriane from './FilAriane.astro';
+import CtaArtisan from './CtaArtisan.astro';
+import AvisCarrousel from './AvisCarrousel.astro';
+import IconeMobile from './IconeMobile.astro';
+import PastilleFleche from './PastilleFleche.astro';
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+import villes from '../data/villes.json';
+import reviews from '../data/reviews.json';
+import pages from '../data/services-pages.json';
+
+export interface Props {
+  page: (typeof pages)[number];
+}
+const { page } = Astro.props;
+
+const estLoiret = page.dept === 45;
+const zone = estLoiret ? 'dans le Loiret' : "dans l'Essonne";
+
+// Autres prestations ouvertes, hors celle de la page courante.
+const actifs = services.filter((s) => s.actif && s.cle !== page.cle);
+const lien = (s: (typeof services)[number]) => (estLoiret ? s.url45 : s.url91);
+
+// Communes du même silo : le maillage service → ville est ce qui fait
+// remonter les pages locales.
+const communes = villes.filter((v) => ('dept' in v ? v.dept : 91) === (estLoiret ? 45 : 91));
+
+const ariane = estLoiret && page.url.startsWith('/couvreur-45/')
+  ? [{ nom: 'Couvreur dans le Loiret', url: '/couvreur-45/' }, { nom: page.filAriane, url: page.url }]
+  : [{ nom: page.filAriane, url: page.url }];
+---
+<FilAriane items={ariane} />
+
+<section class="hero hero--ville">
+  <div class="conteneur hero__grille duo">
+    <div class="hero__texte">
+      <h1>{page.h1}</h1>
+
+      <p class="hero__accroche" set:html={page.chapeau} />
+
+      <ul class="hero__liste">
+        {page.atouts.map((a) => <li>{a}</li>)}
+      </ul>
+
+      <div class="hero__actions">
+        <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+          <IconeMobile />{ent.telephone}
+        </a>
+        <a href="/contact/" class="btn btn--contour-bleu btn--grand">
+          Demander un devis gratuit<PastilleFleche />
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <figure class="hero__visuel">
+        <img
+          class="hero__photo"
+          src={page.photo}
+          alt={page.photoAlt}
+          width={page.photoLargeur}
+          height={page.photoHauteur}
+          fetchpriority="high"
+        />
+        <figcaption class="note-google-encart">
+          <span class="note-google-encart__ligne">
+            <svg class="note-google-encart__logo" viewBox="0 0 24 24" role="img" aria-label="Google">
+              <path fill="#4285F4" d="M23.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.87c2.27-2.09 3.56-5.17 3.56-8.87z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.96-1.08 7.94-2.91l-3.87-3a7.2 7.2 0 0 1-10.72-3.78H1.35v3.09A11.99 11.99 0 0 0 12 24z"/>
+              <path fill="#FBBC05" d="M5.35 14.31a7.2 7.2 0 0 1 0-4.6V6.62H1.35a12 12 0 0 0 0 10.77l4-3.08z"/>
+              <path fill="#EA4335" d="M12 4.77c1.77 0 3.35.61 4.6 1.8l3.43-3.43C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.35 6.62l4 3.09A7.2 7.2 0 0 1 12 4.77z"/>
+            </svg>
+            <span class="note-google-encart__etoiles" aria-hidden="true">★★★★★</span>
+          </span>
+          <span class="note-google-encart__texte">
+            Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google
+            {' · '}{reviews.nombre} avis
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="reassurance">
+  <ul class="reassurance__liste">
+    <li>Intervention {zone}</li>
+    <li>Devis gratuit et détaillé</li>
+    <li>{ent.horaires.libelle}</li>
+  </ul>
+</section>
+
+{page.sections.map((s, i) => (
+  <section class:list={['section', i % 2 === 1 && 'section--gris']}>
+    <div class="conteneur prose prose--large">
+      <h2>{s.titre}</h2>
+      {s.paragraphes.map((p) => <p set:html={p} />)}
+      {s.liste && (
+        <ul class="liste-cochee">
+          {s.liste.map((li) => <li set:html={li} />)}
+        </ul>
+      )}
+    </div>
+  </section>
+))}
+
+<section class="section section--bleute">
+  <div class="conteneur">
+    <div class="entete-section">
+      <h2>{page.etapes.titre}</h2>
+    </div>
+    <ol class="etapes etapes--numerotees">
+      {page.etapes.items.map((e, i) => (
+        <li class="etape">
+          <span class="etape__numero">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{e.titre}</h3>
+          <p>{e.texte}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+{page.tableau && (
+  <section class="section">
+    <div class="conteneur prose prose--large">
+      <h2>{page.tableau.titre}</h2>
+      {page.tableau.intro && <p set:html={page.tableau.intro} />}
+      <div class="tableau-enveloppe">
+        <table class="tableau">
+          <thead>
+            <tr>{page.tableau.colonnes.map((c) => <th scope="col">{c}</th>)}</tr>
+          </thead>
+          <tbody>
+            {page.tableau.lignes.map((l) => (
+              <tr>{l.map((c, i) => (i === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+)}
+
+<AvisCarrousel titre={page.titreAvis} avisIndex={page.avisIndex} />
+
+<section class="section">
+  <div class="conteneur">
+    <h2>{page.titreVilles}</h2>
+    <ul class="nuage-villes">
+      {communes.map((v) => (
+        <li><a href={v.url}>Couvreur à {v.nom}</a></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--gris">
+  <div class="conteneur">
+    <div class="entete-section">
+      <h2>Mes autres travaux de couverture {zone}</h2>
+    </div>
+    <div class="grille-services">
+      {actifs.map((s) => (
+        <a class="carte carte-service" href={lien(s)}>
+          <img src={s.image} alt={s.alt} width={s.imageWidth} height={s.imageHeight} loading="lazy" />
+          <div class="carte-service__corps">
+            <h3>{s.labelCourt}</h3>
+            <p>{s.accroche}</p>
+            <span class="carte-service__lien">{s.lien} →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur prose prose--large">
+    <h2>{page.conclusion.titre}</h2>
+    {page.conclusion.paragraphes.map((p) => <p set:html={p} />)}
+  </div>
+</section>
+
+<CtaArtisan titre={page.ctaTitre} texte={page.ctaTexte} />

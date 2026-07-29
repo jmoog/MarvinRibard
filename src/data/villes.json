@@ -1,0 +1,773 @@
+[
+  {
+    "nom": "Méréville",
+    "slug": "mereville",
+    "cp": "91660",
+    "url": "/couvreur-a-mereville-91660/",
+    "nouvelle": true,
+    "_note": "PAGE NOUVELLE. Méréville est le siège de l'entreprise mais n'avait aucune page dédiée sur le site WordPress : la commune n'était portée que par l'accueil. C'est la première page ville à rédiger.",
+    "siege": true,
+    "communeNouvelle": "Le Mérévillois",
+    "quartiers": [
+      "le centre autour de la halle",
+      "le quartier de la Juine",
+      "Saint-Père"
+    ],
+    "axe": "la RD721 et la vallée de la Juine",
+    "abf": true,
+    "abfMotif": "halle en charpente classée au titre des monuments historiques et parc du château",
+    "typologie": "bourg rural du Hurepoix, pavillons et maisons anciennes en meulière, toitures en tuile plate de pays",
+    "distanceKm": 0,
+    "priorite": 1,
+    "_redaction": "Rotation nº1 du système de formulations. Voir src/data/README-redaction-villes.md.",
+    "h1": "Couvreur à Méréville — Marvin Ribard, votre artisan",
+    "title": "Artisan couvreur à Méréville (91660) — Devis gratuit",
+    "meta": "Entreprise de couverture à Méréville : entretien, réparation et rénovation de votre toit. Devis gratuit et sans engagement, appelez le 06 22 62 09 86.",
+    "intro": "Je suis Marvin Ribard, votre spécialiste des travaux de couverture à Méréville. J'entretiens, je répare et je rénove votre toiture.",
+    "atouts": [
+      "15 années d'expérience",
+      "Spécialiste de la tuile plate et de la tuile pays",
+      "Devis gratuit et sans engagement"
+    ],
+    "titreAvis": "Ils sont satisfaits du travail de leur couvreur à Méréville",
+    "avisIndex": [
+      0,
+      2,
+      7,
+      17
+    ],
+    "titreServices": "Mes services de couvreur à Méréville",
+    "services": {
+      "nettoyage": "Mousses, lichens et tuiles qui gardent l'humidité : je démousse et je traite votre toit à Méréville avant que l'eau ne s'installe dessous.",
+      "renovation": "Votre couverture a fait son temps ? Dépose, reprise de la charpente et toit neuf, en tuile pays comme sur la plupart des maisons de Méréville.",
+      "reparation": "Une tuile cassée, un faîtage descellé, une infiltration qui marque le plafond : j'interviens vite à Méréville pour remettre le toit hors d'eau."
+    },
+    "servicesSuite": [
+      "zinguerie",
+      "gouttieres",
+      "isolation",
+      "velux",
+      "bac-acier"
+    ],
+    "ctaTitre": "Contactez votre artisan couvreur à Méréville",
+    "ctaTexte": "Décrivez-moi ce que vous constatez sur votre toit. Je passe voir, je vous explique ce qu'il y a à faire et je vous remets un devis gratuit. Vous décidez ensuite.",
+    "photo": "/images/photos/renovation-toiture-liteaux-velux.webp",
+    "photoLargeur": 700,
+    "photoHauteur": 467
+  },
+  {
+    "nom": "Étampes",
+    "slug": "etampes",
+    "cp": "91150",
+    "url": "/couvreur-a-etampes-91150/",
+    "quartiers": [
+      "le centre historique",
+      "Saint-Martin",
+      "Guinette"
+    ],
+    "axe": "la RN20",
+    "abf": true,
+    "abfMotif": "site patrimonial remarquable, tour Guinette et plusieurs églises classées",
+    "typologie": "ville ancienne, toitures en tuile plate et ardoise en centre, pavillons en périphérie",
+    "distanceKm": 18,
+    "priorite": 1,
+    "h1": "Entreprise de couverture à Étampes — Marvin Ribard",
+    "title": "Couvreur zingueur à Étampes (91150) — Devis gratuit",
+    "meta": "Votre professionnel de la toiture à Étampes pour tous vos travaux de couverture et de zinguerie. Déplacement offert, devis gratuit au 06 22 62 09 86.",
+    "intro": "Artisan couvreur, j'interviens à Étampes pour entretenir, réparer et rénover votre toiture, du simple démoussage à la réfection complète.",
+    "atouts": [
+      "Professionnel des travaux de toiture",
+      "Spécialiste de la rénovation de toiture",
+      "Devis gratuit, déplacement offert"
+    ],
+    "titreAvis": "Ce que disent mes clients d'Étampes",
+    "avisIndex": [
+      1,
+      5,
+      12,
+      15
+    ],
+    "titreServices": "Mes prestations de couverture à Étampes",
+    "services": {
+      "nettoyage": "Un toit qui verdit à Étampes ? Démoussage, brossage et traitement hydrofuge pour lui rendre son étanchéité, sans attendre la réfection.",
+      "renovation": "Couverture en fin de vie : je dépose, je reprends ce qu'il faut sur la charpente et je repose un toit neuf à Étampes, en tuile, en ardoise ou en bac acier.",
+      "reparation": "Tuile fendue, solin qui prend l'eau, faîtage qui bouge : je remets votre toit d'Étampes hors d'eau rapidement."
+    },
+    "servicesSuite": [
+      "gouttieres",
+      "zinguerie",
+      "velux",
+      "bac-acier",
+      "isolation"
+    ],
+    "ctaTitre": "Parlons de votre toiture à Étampes",
+    "ctaTexte": "Dites-moi ce qui vous inquiète sur votre toit. Je viens constater, je vous explique les options et je vous laisse un devis gratuit, sans engagement.",
+    "photo": "/images/photos/travaux-de-zinguerie-marvin-ribard-couvreur.webp",
+    "photoLargeur": 1000,
+    "photoHauteur": 667
+  },
+  {
+    "nom": "Dourdan",
+    "slug": "dourdan",
+    "cp": "91410",
+    "url": "/couvreur-a-dourdan-91410/",
+    "quartiers": [
+      "le centre autour du château",
+      "Liphard",
+      "les Gruats"
+    ],
+    "axe": "la RN20 et la RD836",
+    "abf": true,
+    "abfMotif": "château médiéval et centre ancien protégés",
+    "typologie": "centre historique en tuile plate, lotissements pavillonnaires en couronne",
+    "distanceKm": 30,
+    "priorite": 2,
+    "h1": "Marvin Ribard, artisan couvreur à Dourdan",
+    "title": "Couvreur à Dourdan — Entretien et rénovation de toit",
+    "meta": "Fuite, tuiles cassées ou toit à démousser à Dourdan ? Artisan couvreur, je me déplace pour un diagnostic et un devis gratuit, sans engagement.",
+    "intro": "Je suis votre professionnel des travaux de couverture à Dourdan. Entretien, réparation, rénovation complète : je prends votre toiture en charge du diagnostic à la finition.",
+    "atouts": [
+      "15 ans d'expérience",
+      "Tous matériaux de couverture",
+      "Artisan seul sur ses chantiers"
+    ],
+    "titreAvis": "Ils ont fait appel à leur couvreur à Dourdan",
+    "avisIndex": [
+      3,
+      8,
+      13,
+      16
+    ],
+    "titreServices": "Mon savoir-faire de couvreur à Dourdan",
+    "services": {
+      "nettoyage": "Mousses et lichens s'installent vite sur les toits de Dourdan. Je démousse, je brosse et j'applique un traitement qui tient dans le temps.",
+      "renovation": "Refaire un toit à Dourdan, c'est reprendre la charpente si besoin, l'écran de sous-toiture et la couverture. Je m'occupe de l'ensemble.",
+      "reparation": "Une infiltration qui apparaît à Dourdan ? J'identifie le point d'entrée de l'eau et je répare, sans refaire ce qui tient encore."
+    },
+    "servicesSuite": [
+      "zinguerie",
+      "isolation",
+      "gouttieres",
+      "bac-acier",
+      "velux"
+    ],
+    "ctaTitre": "Contactez votre couvreur à Dourdan",
+    "ctaTexte": "Une fuite, une tuile qui manque ou un projet de rénovation : appelez-moi. Je me déplace, j'établis le diagnostic et je vous remets un devis gratuit.",
+    "photo": "/images/photos/nettoyage-de-toiture-marvin-ribard-couvreur.webp",
+    "photoLargeur": 540,
+    "photoHauteur": 360
+  },
+  {
+    "nom": "Étréchy",
+    "slug": "etrechy",
+    "cp": "91580",
+    "url": "/couvreur-a-etrechy-91580/",
+    "quartiers": [
+      "le centre",
+      "Vaucelas",
+      "le quartier de la gare"
+    ],
+    "axe": "la RN20 et la ligne C du RER",
+    "abf": false,
+    "typologie": "pavillonnaire dense, toitures en tuile mécanique des années 70-90",
+    "distanceKm": 14,
+    "priorite": 2,
+    "h1": "Votre couvreur zingueur à Étréchy",
+    "title": "Artisan couvreur à Étréchy (91580) — Devis gratuit",
+    "meta": "Couverture, zinguerie et entretien de toiture à Étréchy par un artisan qui mène lui-même ses chantiers. 15 ans d'expérience, devis gratuit sans engagement.",
+    "intro": "Couvreur zingueur, je m'occupe des toitures d'Étréchy : nettoyage, réparation, remplacement des éléments de zinguerie et rénovation complète.",
+    "atouts": [
+      "Devis sans engagement",
+      "15 années d'expérience",
+      "Professionnel de l'entretien de toiture"
+    ],
+    "titreAvis": "Mes clients d'Étréchy et des environs témoignent",
+    "avisIndex": [
+      4,
+      6,
+      10,
+      17
+    ],
+    "titreServices": "Ce que je réalise à Étréchy",
+    "services": {
+      "nettoyage": "Les toitures en tuile mécanique d'Étréchy retiennent facilement la mousse. Démoussage, traitement, et le toit repart pour des années.",
+      "renovation": "Quand la réparation ne suffit plus à Étréchy, je dépose la couverture et je repose un toit neuf, avec l'isolation si vous en profitez.",
+      "reparation": "Tuile cassée, infiltration au niveau d'une cheminée : j'interviens ponctuellement à Étréchy pour arrêter l'eau."
+    },
+    "servicesSuite": [
+      "velux",
+      "zinguerie",
+      "gouttieres",
+      "isolation",
+      "bac-acier"
+    ],
+    "ctaTitre": "Votre expert de la toiture à Étréchy vous répond",
+    "ctaTexte": "Décrivez-moi le problème, envoyez-moi une photo si vous en avez une. Je passe sur place et je chiffre les travaux gratuitement.",
+    "photo": "/images/photos/gouttieres-en-zinc-soudure.webp",
+    "photoLargeur": 599,
+    "photoHauteur": 450
+  },
+  {
+    "nom": "Saint-Chéron",
+    "slug": "saint-cheron",
+    "cp": "91530",
+    "url": "/couvreur-a-saint-cheron-91530/",
+    "quartiers": [
+      "le centre-bourg",
+      "Baville",
+      "Mirgaudon"
+    ],
+    "axe": "la RD116 et la vallée de l'Orge",
+    "abf": false,
+    "typologie": "maisons de vallée, combles aménagés fréquents, toitures en tuile plate et ardoise",
+    "distanceKm": 25,
+    "priorite": 2,
+    "h1": "Travaux de couverture à Saint-Chéron — Marvin Ribard",
+    "title": "Couvreur à Saint-Chéron (91530) — Marvin Ribard",
+    "meta": "Entreprise de couverture à Saint-Chéron : entretien, réparation et rénovation de votre toit. Devis gratuit et sans engagement au 06 22 62 09 86.",
+    "intro": "Votre expert des travaux de couverture à Saint-Chéron. J'entretiens votre toiture, je la répare quand elle prend l'eau et je la refais quand elle a fait son temps.",
+    "atouts": [
+      "Spécialiste de la tuile plate et de la tuile pays",
+      "Devis gratuit et sans engagement",
+      "Expert des travaux de couverture"
+    ],
+    "titreAvis": "Ils sont satisfaits de leur couvreur à Saint-Chéron",
+    "avisIndex": [
+      11,
+      14,
+      2,
+      5
+    ],
+    "titreServices": "Mes services de couvreur à Saint-Chéron",
+    "services": {
+      "nettoyage": "Un toit qui verdit à Saint-Chéron finit par retenir l'eau au lieu de l'évacuer. Je démousse et je traite pour éviter les infiltrations.",
+      "renovation": "Rénover une toiture à Saint-Chéron, c'est souvent l'occasion de reprendre l'isolation des combles en même temps. Je vous dis ce qui vaut le coup.",
+      "reparation": "Faîtage descellé, tuiles à reposer, gouttière qui déborde : je répare vite à Saint-Chéron pour éviter que l'eau ne fasse plus de dégâts."
+    },
+    "servicesSuite": [
+      "isolation",
+      "gouttieres",
+      "zinguerie",
+      "velux",
+      "bac-acier"
+    ],
+    "ctaTitre": "Contactez votre artisan couvreur à Saint-Chéron",
+    "ctaTexte": "Je me déplace pour voir votre toiture, vous expliquer ce qu'elle demande et vous remettre un devis gratuit. Vous décidez ensuite, tranquillement.",
+    "photo": "/images/photos/pose-bardage-acier.webp",
+    "photoLargeur": 1348,
+    "photoHauteur": 900
+  },
+  {
+    "nom": "Milly-la-Forêt",
+    "slug": "milly-la-foret",
+    "cp": "91490",
+    "url": "/couvreur-a-milly-la-foret-91490/",
+    "quartiers": [
+      "le centre autour de la halle",
+      "le Bas-Milly",
+      "la chapelle Saint-Blaise"
+    ],
+    "axe": "la RD837 et la RD948",
+    "abf": true,
+    "abfMotif": "halle du XVe siècle classée, abords du château et lisière du massif des Trois Pignons",
+    "typologie": "bâti ancien en grès et meulière, toitures en tuile plate de pays, contraintes fortes de matériaux",
+    "distanceKm": 27,
+    "priorite": 2,
+    "h1": "Votre artisan couvreur à Milly-la-Forêt",
+    "title": "Professionnel de la toiture à Milly-la-Forêt (91490)",
+    "meta": "Travaux de couverture et de zinguerie à Milly-la-Forêt : entretien, réparation, rénovation. Déplacement offert et devis gratuit au 06 22 62 09 86.",
+    "intro": "Artisan couvreur, j'interviens à Milly-la-Forêt pour l'entretien courant de votre toiture comme pour une réfection complète.",
+    "atouts": [
+      "15 années d'expérience",
+      "Spécialiste de la tuile plate et de la tuile pays",
+      "Devis gratuit, déplacement offert"
+    ],
+    "titreAvis": "Les retours de mes clients à Milly-la-Forêt",
+    "avisIndex": [
+      16,
+      0,
+      6,
+      13
+    ],
+    "titreServices": "Mes prestations de couverture à Milly-la-Forêt",
+    "services": {
+      "nettoyage": "À Milly-la-Forêt, une toiture qui se couvre de mousse perd son étanchéité année après année. Démoussage complet et traitement hydrofuge.",
+      "renovation": "Une réfection de toiture à Milly-la-Forêt demande de choisir les bons matériaux. Je travaille la tuile plate de pays comme l'ardoise.",
+      "reparation": "Une tuile qui glisse, un solin fissuré : je répare ponctuellement à Milly-la-Forêt, sans vous vendre une réfection dont vous n'avez pas besoin."
+    },
+    "servicesSuite": [
+      "zinguerie",
+      "velux",
+      "gouttieres",
+      "isolation",
+      "bac-acier"
+    ],
+    "ctaTitre": "Parlons de votre toit à Milly-la-Forêt",
+    "ctaTexte": "Appelez-moi ou écrivez-moi : je viens regarder votre toiture et je vous remets un devis gratuit, détaillé poste par poste.",
+    "photo": "/images/photos/double-fenetre-de-toit-velux.webp",
+    "photoLargeur": 1000,
+    "photoHauteur": 726
+  },
+  {
+    "nom": "La Ferté-Alais",
+    "slug": "la-ferte-alais",
+    "cp": "91590",
+    "url": "/couvreur-a-la-ferte-alais-91590/",
+    "quartiers": [
+      "le centre",
+      "le quartier de la gare",
+      "les coteaux de l'Essonne"
+    ],
+    "axe": "la RD449 et la vallée de l'Essonne",
+    "abf": true,
+    "abfMotif": "église Notre-Dame de l'Assomption classée et centre ancien",
+    "typologie": "maisons de bourg mitoyennes, toitures en tuile plate, accès de chantier souvent étroits",
+    "distanceKm": 22,
+    "priorite": 2,
+    "h1": "Couvreur et zingueur à La Ferté-Alais — Marvin Ribard",
+    "title": "Couvreur à La Ferté-Alais — Entretien et rénovation",
+    "meta": "Fuite, tuiles cassées ou toit à démousser à La Ferté-Alais ? Artisan couvreur, je me déplace pour un diagnostic et un devis gratuit sans engagement.",
+    "intro": "Je suis votre professionnel des travaux de couverture à La Ferté-Alais : entretien, réparation, zinguerie et rénovation de toiture.",
+    "atouts": [
+      "Professionnel des travaux de toiture",
+      "Devis sans engagement",
+      "Spécialiste de la rénovation de toiture"
+    ],
+    "titreAvis": "Ce que mes clients de La Ferté-Alais retiennent de mon travail",
+    "avisIndex": [
+      8,
+      17,
+      3,
+      10
+    ],
+    "titreServices": "Mon savoir-faire de couvreur à La Ferté-Alais",
+    "services": {
+      "nettoyage": "Un toit démoussé à La Ferté-Alais, c'est de l'eau qui s'écoule au lieu de stagner sous les tuiles. Nettoyage, traitement et gouttières vidées.",
+      "renovation": "Je rénove les couvertures de La Ferté-Alais de bout en bout : dépose, écran de sous-toiture, tuiles neuves et raccords de zinguerie.",
+      "reparation": "Infiltration, tuile cassée, noue qui fuit : j'interviens à La Ferté-Alais avec le matériel qu'il faut, même sur les accès étroits."
+    },
+    "servicesSuite": [
+      "gouttieres",
+      "velux",
+      "zinguerie",
+      "bac-acier",
+      "isolation"
+    ],
+    "ctaTitre": "Contactez votre expert de la toiture à La Ferté-Alais",
+    "ctaTexte": "Vous constatez une trace d'humidité, une tuile au sol, une gouttière qui déborde ? Appelez-moi, je passe voir et je chiffre gratuitement.",
+    "photo": "/images/photos/travaux-de-zinguerie-marvin-ribard-couvreur.webp",
+    "photoLargeur": 1000,
+    "photoHauteur": 667
+  },
+  {
+    "nom": "Cerny",
+    "slug": "cerny",
+    "cp": "91590",
+    "url": "/couvreur-a-cerny-91590/",
+    "quartiers": [
+      "le centre village",
+      "Le Mesnil-Racoin",
+      "la plaine agricole"
+    ],
+    "axe": "la RD449, à proximité de l'aérodrome de Cerny-La Ferté-Alais",
+    "abf": false,
+    "typologie": "village rural, corps de ferme et longères, grandes surfaces de couverture en tuile mécanique",
+    "distanceKm": 24,
+    "priorite": 3,
+    "h1": "Entreprise de couverture à Cerny — Marvin Ribard",
+    "title": "Artisan couvreur à Cerny (91590) — Devis gratuit",
+    "meta": "Couverture, zinguerie et entretien de toiture à Cerny par un artisan qui mène lui-même ses chantiers. 15 ans d'expérience, devis gratuit et sans engagement.",
+    "intro": "Couvreur à Cerny, j'entretiens, je répare et je rénove les toitures des particuliers, sur les petites surfaces comme sur les grandes.",
+    "atouts": [
+      "15 ans d'expérience",
+      "Artisan seul sur ses chantiers",
+      "Tous matériaux de couverture"
+    ],
+    "titreAvis": "Ils ont confié leur toiture à leur couvreur à Cerny",
+    "avisIndex": [
+      12,
+      4,
+      15,
+      1
+    ],
+    "titreServices": "Ce que je réalise à Cerny",
+    "services": {
+      "nettoyage": "Les grandes surfaces de toiture de Cerny demandent un démoussage méthodique. Brossage, rinçage, traitement : je ne bâcle pas les rives.",
+      "renovation": "Refaire un toit à Cerny, c'est d'abord vérifier ce qu'il y a dessous. Je vous dis franchement ce qui doit être repris et ce qui tient encore.",
+      "reparation": "Une rangée de tuiles descellée à Cerny : je remonte, je repose et je scelle pour que ça tienne."
+    },
+    "servicesSuite": [
+      "bac-acier",
+      "zinguerie",
+      "gouttieres",
+      "isolation",
+      "velux"
+    ],
+    "ctaTitre": "Votre couvreur à Cerny se déplace",
+    "ctaTexte": "Décrivez-moi l'état de votre toiture au téléphone. Si ça mérite une visite, je viens gratuitement et je repars avec de quoi vous chiffrer les travaux.",
+    "photo": "/images/photos/bg-couvreurs-toiture.webp",
+    "photoLargeur": 950,
+    "photoHauteur": 633
+  },
+  {
+    "nom": "Chamarande",
+    "slug": "chamarande",
+    "cp": "91730",
+    "url": "/couvreur-a-chamarande-91730/",
+    "quartiers": [
+      "le centre autour du domaine",
+      "le Petit Chamarande",
+      "les bords de Juine"
+    ],
+    "axe": "la RD146 et la vallée de la Juine",
+    "abf": true,
+    "abfMotif": "domaine départemental de Chamarande, château et parc classés",
+    "typologie": "petit bourg patrimonial, toitures en tuile plate et ardoise, prescriptions ABF systématiques",
+    "distanceKm": 16,
+    "priorite": 3,
+    "h1": "Marvin Ribard, artisan couvreur à Chamarande",
+    "title": "Couvreur zingueur à Chamarande — Devis gratuit",
+    "meta": "Entreprise de couverture à Chamarande : entretien, réparation et rénovation de toiture. Devis gratuit et sans engagement, appelez le 06 22 62 09 86.",
+    "intro": "Votre professionnel des travaux de couverture à Chamarande. Je m'occupe de l'entretien, des réparations et de la réfection complète de votre toit.",
+    "atouts": [
+      "Devis gratuit et sans engagement",
+      "Spécialiste de la tuile plate et de la tuile pays",
+      "Professionnel de l'entretien de toiture"
+    ],
+    "titreAvis": "Mes clients de Chamarande donnent leur avis",
+    "avisIndex": [
+      9,
+      7,
+      14,
+      11
+    ],
+    "titreServices": "Mes services de couvreur à Chamarande",
+    "services": {
+      "nettoyage": "Entretenir un toit à Chamarande coûte bien moins cher que de le refaire dix ans trop tôt. Démoussage, traitement, contrôle des points sensibles.",
+      "renovation": "Une rénovation de toiture à Chamarande se prépare : choix des tuiles, écran de sous-toiture, ventilation. Je vous explique chaque poste du devis.",
+      "reparation": "Fuite au niveau d'une souche de cheminée, tuile fendue : je répare à Chamarande sans toucher à ce qui est encore sain."
+    },
+    "servicesSuite": [
+      "velux",
+      "isolation",
+      "zinguerie",
+      "gouttieres",
+      "bac-acier"
+    ],
+    "ctaTitre": "Contactez votre couvreur à Chamarande",
+    "ctaTexte": "Un rendez-vous, un diagnostic, un devis gratuit : c'est comme ça que ça commence. Appelez-moi, je vous rappelle si je suis sur un chantier.",
+    "photo": "/images/photos/velux-isolation-interieur.webp",
+    "photoLargeur": 450,
+    "photoHauteur": 300
+  },
+  {
+    "nom": "Abbéville-la-Rivière",
+    "slug": "abbeville-la-riviere",
+    "cp": "91150",
+    "url": "/couvreur-a-abbeville-la-riviere-91150/",
+    "quartiers": [
+      "le bourg",
+      "la vallée de l'Éclimont",
+      "les hameaux agricoles"
+    ],
+    "axe": "la RD21",
+    "abf": false,
+    "typologie": "village de la Beauce essonnienne, fermes en pierre, grandes toitures exposées au vent",
+    "distanceKm": 8,
+    "priorite": 3,
+    "h1": "Votre artisan couvreur à Abbéville-la-Rivière",
+    "title": "Professionnel de la toiture à Abbéville-la-Rivière",
+    "meta": "Travaux de couverture et de zinguerie à Abbéville-la-Rivière : entretien, réparation, rénovation. Déplacement offert, devis gratuit au 06 22 62 09 86.",
+    "intro": "Couvreur à Abbéville-la-Rivière, j'interviens sur les petites toitures comme sur les grandes surfaces, pour l'entretien comme pour la réfection.",
+    "atouts": [
+      "Expert des travaux de couverture",
+      "15 années d'expérience",
+      "Devis gratuit, déplacement offert"
+    ],
+    "titreAvis": "Les avis de mes clients d'Abbéville-la-Rivière",
+    "avisIndex": [
+      5,
+      16,
+      0,
+      8
+    ],
+    "titreServices": "Mes prestations de couverture à Abbéville-la-Rivière",
+    "services": {
+      "nettoyage": "Une toiture d'Abbéville-la-Rivière qui s'encrasse perd son étanchéité. Je démousse, je traite et je vérifie les fixations au passage.",
+      "renovation": "Une réfection de toiture à Abbéville-la-Rivière sur une grande surface se chiffre au mètre carré : je détaille tout, vous savez où va chaque euro.",
+      "reparation": "Tuiles à reposer, faîtage à reprendre : j'interviens à Abbéville-la-Rivière pour remettre le toit hors d'eau."
+    },
+    "servicesSuite": [
+      "bac-acier",
+      "gouttieres",
+      "zinguerie",
+      "velux",
+      "isolation"
+    ],
+    "ctaTitre": "Parlons de votre toiture à Abbéville-la-Rivière",
+    "ctaTexte": "Appelez-moi pour me décrire ce que vous voyez. Je viens constater sur place et je vous laisse un devis gratuit, sans obligation de suite.",
+    "photo": "/images/photos/double-fenetre-de-toit-velux.webp",
+    "photoLargeur": 1000,
+    "photoHauteur": 726
+  },
+  {
+    "nom": "Malesherbes",
+    "slug": "malesherbes",
+    "cp": "45330",
+    "url": "/couvreur-45/couvreur-a-malesherbes-45330/",
+    "dept": 45,
+    "_note": "Commune déléguée du Malesherbois. Seule page ville du silo Loiret : ses cards doivent pointer vers les URL /couvreur-45/ (champ url45 de services.json), pas vers les pages Essonne.",
+    "communeNouvelle": "Le Malesherbois",
+    "distanceKm": 14,
+    "priorite": 2,
+    "h1": "Couvreur et zingueur à Malesherbes — Marvin Ribard",
+    "title": "Couvreur à Malesherbes (45330) — Marvin Ribard",
+    "meta": "Fuite, tuiles cassées ou toit à démousser à Malesherbes ? Artisan couvreur, je me déplace pour un diagnostic et un devis gratuit sans engagement.",
+    "intro": "Artisan couvreur, j'interviens à Malesherbes pour entretenir, réparer et rénover votre toiture, du démoussage à la réfection complète.",
+    "atouts": [
+      "15 ans d'expérience",
+      "Spécialiste de la rénovation de toiture",
+      "Devis sans engagement"
+    ],
+    "titreAvis": "Ce que disent mes clients de Malesherbes",
+    "avisIndex": [
+      13,
+      1,
+      9,
+      4
+    ],
+    "titreServices": "Mon savoir-faire de couvreur à Malesherbes",
+    "services": {
+      "nettoyage": "Un toit encrassé à Malesherbes finit par retenir l'eau sous les tuiles. Démoussage, brossage et traitement pour lui rendre son étanchéité.",
+      "renovation": "Refaire une couverture à Malesherbes : dépose, contrôle de la charpente, écran de sous-toiture et tuiles neuves. Je mène le chantier de bout en bout.",
+      "reparation": "Tuile cassée, faîtage descellé, infiltration qui s'installe : je répare vite à Malesherbes pour remettre le toit hors d'eau."
+    },
+    "servicesSuite": [
+      "zinguerie",
+      "gouttieres",
+      "velux",
+      "isolation",
+      "bac-acier"
+    ],
+    "ctaTitre": "Contactez votre artisan couvreur à Malesherbes",
+    "ctaTexte": "Décrivez-moi ce que vous constatez sur votre toit. Je passe voir, je vous explique ce qu'il y a à faire et je vous remets un devis gratuit.",
+    "photo": "/images/photos/travaux-de-zinguerie-marvin-ribard-couvreur.webp",
+    "photoLargeur": 1000,
+    "photoHauteur": 667
+  },
+  {
+    "nom": "Sermaises",
+    "slug": "sermaises",
+    "cp": "45300",
+    "url": "/couvreur-45/couvreur-a-sermaises-45300/",
+    "dept": 45,
+    "nouvelle": true,
+    "distanceKm": 10,
+    "h1": "Couvreur à Sermaises — Marvin Ribard, votre artisan",
+    "title": "Professionnel de la toiture à Sermaises (45300)",
+    "meta": "Couverture, zinguerie et entretien de toiture à Sermaises par un artisan qui mène lui-même ses chantiers. 15 ans d'expérience, devis gratuit sans engagement.",
+    "intro": "Couvreur à Sermaises, je m'occupe de votre toiture toute l'année : démoussage, réparations ponctuelles et réfection complète quand elle arrive en bout de course.",
+    "atouts": [
+      "15 années d'expérience",
+      "Tous matériaux de couverture",
+      "Devis sans engagement"
+    ],
+    "titreAvis": "Mes clients de Sermaises et des alentours en parlent",
+    "avisIndex": [
+      12,
+      3,
+      9,
+      6
+    ],
+    "titreServices": "Ce que je réalise à Sermaises",
+    "services": {
+      "nettoyage": "Un toit de Sermaises qui se couvre de mousse retient l'eau au lieu de l'évacuer. Démoussage, brossage et traitement pour repartir sur de bonnes bases.",
+      "renovation": "Quand votre toit de Sermaises arrive en fin de vie, je le dépose entièrement et je repose une couverture neuve, avec l'écran de sous-toiture qui va avec.",
+      "reparation": "Tuile fendue, faîtage qui bouge, infiltration au-dessus d'une chambre : je répare à Sermaises sans attendre que le plafond marque."
+    },
+    "servicesSuite": [
+      "gouttieres",
+      "isolation",
+      "zinguerie",
+      "bac-acier",
+      "velux"
+    ],
+    "ctaTitre": "Contactez votre couvreur à Sermaises",
+    "ctaTexte": "Un coup de fil suffit pour commencer. Je viens voir votre toiture, je vous dis ce qu'elle demande et je vous remets un devis gratuit.",
+    "photo": "/images/photos/renovation-toiture-liteaux-velux.webp",
+    "photoLargeur": 700,
+    "photoHauteur": 467
+  },
+  {
+    "nom": "Pithiviers",
+    "slug": "pithiviers",
+    "cp": "45300",
+    "url": "/couvreur-45/couvreur-a-pithiviers-45300/",
+    "dept": 45,
+    "nouvelle": true,
+    "distanceKm": 25,
+    "h1": "Votre couvreur zingueur à Pithiviers",
+    "title": "Artisan couvreur à Pithiviers (45300) — Devis gratuit",
+    "meta": "Entreprise de couverture à Pithiviers : entretien, réparation et rénovation de votre toit. Devis gratuit et sans engagement, appelez le 06 22 62 09 86.",
+    "intro": "Votre professionnel de la toiture à Pithiviers. Une fuite à arrêter, un toit à démousser, une couverture à refaire : ce sont mes chantiers de tous les jours.",
+    "atouts": [
+      "Expert des travaux de couverture",
+      "Spécialiste de la rénovation de toiture",
+      "Devis gratuit, déplacement offert"
+    ],
+    "titreAvis": "Ce qu'en disent mes clients de Pithiviers",
+    "avisIndex": [
+      6,
+      14,
+      1,
+      8
+    ],
+    "titreServices": "Mes services de couvreur à Pithiviers",
+    "services": {
+      "nettoyage": "Démoussage complet d'un toit à Pithiviers : brossage, rinçage et traitement hydrofuge, gouttières vidées au passage.",
+      "renovation": "Une rénovation de toiture à Pithiviers commence par un vrai état des lieux de la charpente. Je chiffre ensuite chaque poste, sans forfait flou.",
+      "reparation": "Fuite au niveau d'une cheminée, tuiles descellées, solin fissuré : j'interviens à Pithiviers pour remettre votre toit hors d'eau."
+    },
+    "servicesSuite": [
+      "zinguerie",
+      "velux",
+      "gouttieres",
+      "bac-acier",
+      "isolation"
+    ],
+    "ctaTitre": "Parlons de votre toiture à Pithiviers",
+    "ctaTexte": "Décrivez-moi ce que vous constatez, photo à l'appui si vous en avez une. Je passe sur place et je chiffre les travaux gratuitement.",
+    "photo": "/images/photos/double-fenetre-de-toit-velux.webp",
+    "photoLargeur": 1000,
+    "photoHauteur": 726
+  },
+  {
+    "nom": "Puiseaux",
+    "slug": "puiseaux",
+    "cp": "45390",
+    "url": "/couvreur-45/couvreur-a-puiseaux-45390/",
+    "dept": 45,
+    "nouvelle": true,
+    "distanceKm": 24,
+    "h1": "Travaux de couverture à Puiseaux — Marvin Ribard",
+    "title": "Couvreur à Puiseaux — Entretien et rénovation de toit",
+    "meta": "Votre professionnel de la toiture à Puiseaux pour tous vos travaux de couverture et de zinguerie. Déplacement offert, devis gratuit au 06 22 62 09 86.",
+    "intro": "Couvreur à Puiseaux, j'entretiens, je répare et je rénove les toitures des particuliers, du simple démoussage à la réfection complète.",
+    "atouts": [
+      "Devis gratuit et sans engagement",
+      "15 années d'expérience",
+      "Spécialiste de la tuile plate et de la tuile pays"
+    ],
+    "titreAvis": "Les avis de mes clients à Puiseaux",
+    "avisIndex": [
+      10,
+      0,
+      13,
+      5
+    ],
+    "titreServices": "Mes prestations de couverture à Puiseaux",
+    "services": {
+      "nettoyage": "À Puiseaux, un toit entretenu tous les cinq ou six ans évite bien des mauvaises surprises. Je démousse, je traite et je contrôle les points sensibles.",
+      "renovation": "Refaire un toit à Puiseaux, c'est aussi choisir la bonne tuile. Je vous montre les options avant de chiffrer.",
+      "reparation": "Une tuile retrouvée au sol à Puiseaux, c'est souvent le signe qu'il faut monter voir. Je répare ce qui doit l'être, rien de plus."
+    },
+    "servicesSuite": [
+      "isolation",
+      "gouttieres",
+      "bac-acier",
+      "zinguerie",
+      "velux"
+    ],
+    "ctaTitre": "Contactez votre artisan couvreur à Puiseaux",
+    "ctaTexte": "Le premier rendez-vous ne vous engage à rien : je monte voir, je vous explique ce que j'ai constaté et je vous laisse un devis détaillé.",
+    "photo": "/images/photos/gouttieres-en-zinc-soudure.webp",
+    "photoLargeur": 599,
+    "photoHauteur": 450
+  },
+  {
+    "nom": "Outarville",
+    "slug": "outarville",
+    "cp": "45480",
+    "url": "/couvreur-45/couvreur-a-outarville-45480/",
+    "dept": 45,
+    "nouvelle": true,
+    "distanceKm": 20,
+    "h1": "Votre artisan couvreur à Outarville",
+    "title": "Couvreur zingueur à Outarville — Devis gratuit",
+    "meta": "Fuite, tuiles cassées ou toit à démousser à Outarville ? Artisan couvreur, je me déplace pour un diagnostic et un devis gratuit sans engagement.",
+    "intro": "Je suis votre professionnel des travaux de couverture à Outarville : entretien, réparation et réfection de toiture, sur toutes les surfaces.",
+    "atouts": [
+      "Tous matériaux de couverture",
+      "15 ans d'expérience",
+      "Devis sans engagement"
+    ],
+    "titreAvis": "Mes clients d'Outarville témoignent",
+    "avisIndex": [
+      15,
+      7,
+      4,
+      16
+    ],
+    "titreServices": "Mon savoir-faire de couvreur à Outarville",
+    "services": {
+      "nettoyage": "Les grandes toitures d'Outarville demandent un démoussage méthodique, rive par rive. Brossage, rinçage et traitement anti-mousse.",
+      "renovation": "Réfection de toiture à Outarville : je reprends la charpente si elle le demande, puis je repose une couverture neuve, tuile ou bac acier.",
+      "reparation": "Rangée de tuiles à reposer, faîtage à resceller : j'interviens vite à Outarville pour éviter que l'eau ne s'installe."
+    },
+    "servicesSuite": [
+      "bac-acier",
+      "gouttieres",
+      "zinguerie",
+      "isolation",
+      "velux"
+    ],
+    "ctaTitre": "Votre couvreur à Outarville se déplace",
+    "ctaTexte": "Dites-moi ce que vous voyez depuis le sol, je m'occupe du reste. Diagnostic sur place et devis gratuit, sans obligation de suite.",
+    "photo": "/images/photos/bg-couvreurs-toiture.webp",
+    "photoLargeur": 950,
+    "photoHauteur": 633
+  },
+  {
+    "nom": "Beaune-la-Rolande",
+    "slug": "beaune-la-rolande",
+    "cp": "45340",
+    "url": "/couvreur-45/couvreur-a-beaune-la-rolande-45340/",
+    "dept": 45,
+    "nouvelle": true,
+    "distanceKm": 38,
+    "h1": "Entreprise de couverture à Beaune-la-Rolande",
+    "title": "Artisan couvreur à Beaune-la-Rolande (45340)",
+    "meta": "Couverture, zinguerie et entretien de toiture à Beaune-la-Rolande par un artisan seul sur ses chantiers. Devis gratuit et sans engagement au 06 22 62 09 86.",
+    "intro": "Couvreur à Beaune-la-Rolande, je m'occupe de votre toiture : nettoyage, reprise de zinguerie, réparations et rénovation complète.",
+    "atouts": [
+      "Artisan seul sur ses chantiers",
+      "Professionnel de l'entretien de toiture",
+      "Devis gratuit, déplacement offert"
+    ],
+    "titreAvis": "Ils ont fait appel à leur couvreur à Beaune-la-Rolande",
+    "avisIndex": [
+      1,
+      11,
+      2,
+      14
+    ],
+    "titreServices": "Ce que je réalise à Beaune-la-Rolande",
+    "services": {
+      "nettoyage": "Un démoussage à Beaune-la-Rolande, c'est quelques années de plus pour votre couverture et des gouttières qui cessent de se boucher.",
+      "renovation": "Rénover un toit à Beaune-la-Rolande demande de vérifier d'abord ce qu'il y a dessous. Je vous dis franchement ce qui doit être repris et ce qui tient encore.",
+      "reparation": "Infiltration, tuile fendue, noue qui fuit : je localise le point d'entrée de l'eau à Beaune-la-Rolande et je répare."
+    },
+    "servicesSuite": [
+      "zinguerie",
+      "bac-acier",
+      "velux",
+      "gouttieres",
+      "isolation"
+    ],
+    "ctaTitre": "Contactez votre expert de la toiture à Beaune-la-Rolande",
+    "ctaTexte": "Une trace d'humidité au plafond, une tuile retrouvée dans le jardin ? Appelez-moi, je viens voir et je vous remets un devis gratuit.",
+    "photo": "/images/photos/nettoyage-de-toiture-marvin-ribard-couvreur.webp",
+    "photoLargeur": 540,
+    "photoHauteur": 360
+  }
+]

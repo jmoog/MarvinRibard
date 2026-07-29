@@ -1,0 +1,29 @@
+---
+/**
+ * URL conservée : /reparation-de-toiture-dans-lessonne-91/
+ *
+ * Le contenu est dans src/data/services-pages.json (entrée « reparation » /
+ * département 91) et le rendu dans PageService.astro. Les versions
+ * Essonne et Loiret de ce service sont deux textes DISTINCTS, rédigés
+ * séparément — voir la note en tête de PageService.astro.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageService from '../components/PageService.astro';
+import pages from '../data/services-pages.json';
+import { breadcrumb, service as schemaService } from '../lib/schemas';
+
+const page = pages.find((p) => p.cle === 'reparation' && p.dept === 91)!;
+
+const extraSchemas = [
+  breadcrumb([{ nom: page.filAriane, url: page.url }]),
+  schemaService({
+    nom: page.h1,
+    description: page.meta,
+    url: page.url,
+    zone: 'Essonne (91)',
+  }),
+];
+---
+<BaseLayout title={page.title} description={page.meta} extraSchemas={extraSchemas}>
+  <PageService page={page} />
+</BaseLayout>

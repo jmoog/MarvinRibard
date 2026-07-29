@@ -1,0 +1,152 @@
+---
+// URL nouvelle : /politique-de-confidentialite/
+// Le site WordPress n'en avait aucune, alors qu'il collectait des données via
+// un formulaire de contact. Page liée depuis le footer et les mentions légales.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import ent from '../data/entreprise.json';
+import { breadcrumb } from '../lib/schemas';
+
+const title = 'Politique de confidentialité — Marvin Ribard Couverture';
+const description =
+  "Quelles données sont collectées sur marvin-ribard.fr, pourquoi, combien de temps elles sont conservées, et comment exercer vos droits.";
+
+const extraSchemas = [
+  breadcrumb([{ nom: 'Politique de confidentialité', url: '/politique-de-confidentialite/' }]),
+];
+
+// Aligné sur src/components/CookieBanner.astro : tant qu'aucun identifiant GA4
+// n'est renseigné, aucun script tiers n'est chargé et le site ne dépose aucun
+// cookie de mesure. Passer à `true` le jour où la mesure est activée.
+const MESURE_AUDIENCE = false;
+---
+<BaseLayout title={title} description={description} extraSchemas={extraSchemas}>
+  <FilAriane items={[{ nom: 'Politique de confidentialité', url: '/politique-de-confidentialite/' }]} />
+
+  <section class="section">
+    <div class="conteneur prose">
+      <h1>Politique de confidentialité</h1>
+
+      <p>
+        Cette page explique quelles informations sont recueillies sur ce site, ce qu'elles
+        deviennent et comment vous gardez la main dessus. Le principe est simple&nbsp;: je
+        ne collecte que ce qui est nécessaire pour vous répondre et établir un devis, et
+        rien n'est revendu ni transmis à des tiers commerciaux.
+      </p>
+
+      <h2>Qui est responsable de vos données</h2>
+      <p>
+        <strong>{ent.nomLegal}</strong>, exerçant sous le nom commercial {ent.nomCommercial}<br />
+        {ent.adresse.rue}, {ent.adresse.codePostal} {ent.adresse.ville}<br />
+        SIRET {ent.siretAffichage}<br />
+        Contact&nbsp;: <a href={`mailto:${ent.email}`}>{ent.email}</a> —
+        {' '}<a href={`tel:${ent.telephoneLien}`}>{ent.telephone}</a>
+      </p>
+      <p>
+        L'entreprise n'emploie pas de salarié et n'est pas tenue de désigner un délégué à
+        la protection des données. C'est donc {ent.nomExploitant} lui-même qui traite vos
+        demandes sur ce sujet.
+      </p>
+
+      <h2>Les données collectées et pourquoi</h2>
+      <p>
+        Le seul endroit où vous transmettez des informations est le formulaire de demande
+        de devis. Les champs demandés sont votre nom, votre téléphone, votre adresse
+        électronique, la commune ou l'adresse du chantier, et la description de votre
+        besoin. L'adresse du chantier est nécessaire pour savoir si le lieu se situe dans
+        ma zone d'intervention et pour organiser la visite.
+      </p>
+      <p>
+        Ces données servent uniquement à vous recontacter, préparer la visite technique et
+        établir le devis. La base légale est l'exécution de mesures précontractuelles
+        prises à votre demande, au sens de l'article 6.1.b du RGPD&nbsp;: vous remplissez
+        le formulaire pour obtenir un devis, je l'utilise pour vous le fournir.
+      </p>
+      <p>
+        Aucune donnée sensible n'est demandée. Le formulaire ne comporte pas de case
+        d'inscription à une newsletter&nbsp;: vos coordonnées ne servent pas à de la
+        prospection.
+      </p>
+
+      <h2>Combien de temps elles sont conservées</h2>
+      <p>
+        Si votre demande n'aboutit pas à un chantier, vos coordonnées sont conservées
+        trois ans à compter de notre dernier échange, puis supprimées. Si un devis est
+        signé, les documents liés au chantier sont conservés dix ans, comme l'imposent les
+        obligations comptables et la durée de la garantie décennale, laquelle joue en
+        votre faveur.
+      </p>
+
+      <h2>Qui y a accès</h2>
+      <p>
+        {ent.nomExploitant} seul. Les messages transitent par l'hébergeur du site
+        ({ent.hebergeur.nom}) et par le service de messagerie utilisé pour recevoir les
+        demandes&nbsp;; ces prestataires techniques n'exploitent pas vos données pour leur
+        propre compte. Aucune information n'est vendue, louée ni transmise à des
+        courtiers en données ou à des plateformes de mise en relation.
+      </p>
+      <p>
+        Si votre chantier nécessite l'intervention d'un confrère ou d'un fournisseur, vos
+        coordonnées ne lui sont communiquées qu'avec votre accord préalable.
+      </p>
+
+      <h2>Cookies et mesure d'audience</h2>
+      {MESURE_AUDIENCE ? (
+        <p>
+          Ce site utilise un outil de mesure d'audience pour comprendre comment il est
+          consulté. Aucun cookie de mesure n'est déposé tant que vous n'avez pas accepté
+          via le bandeau prévu à cet effet, et vous pouvez revenir sur ce choix à tout
+          moment en effaçant les données du site dans votre navigateur.
+        </p>
+      ) : (
+        <p>
+          Ce site ne dépose <strong>aucun cookie</strong> de mesure d'audience, de
+          publicité ou de réseau social. Il n'utilise ni Google Analytics, ni pixel de
+          suivi, ni bouton de partage traçant. La police de caractères est hébergée
+          directement sur le domaine, sans appel aux serveurs de Google Fonts&nbsp;:
+          aucune adresse IP n'est transmise à un tiers du seul fait de votre visite.
+        </p>
+      )}
+      <p>
+        Les journaux techniques de l'hébergeur (adresse IP, date, page consultée) sont
+        conservés à des fins de sécurité et de diagnostic, pour une durée limitée, sans
+        exploitation commerciale.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Vous pouvez à tout moment demander l'accès aux données vous concernant, leur
+        rectification, leur effacement, la limitation de leur traitement, ou vous opposer
+        à celui-ci. Vous disposez également d'un droit à la portabilité.
+      </p>
+      <p>
+        Pour exercer ces droits, écrivez à
+        {' '}<a href={`mailto:${ent.email}`}>{ent.email}</a> ou par courrier au
+        {' '}{ent.adresse.rue}, {ent.adresse.codePostal} {ent.adresse.ville}. Une réponse
+        vous sera apportée dans un délai d'un mois. Si la réponse ne vous satisfait pas,
+        vous pouvez saisir la CNIL —
+        {' '}<a href="https://www.cnil.fr/fr/plaintes" rel="noopener nofollow" target="_blank">cnil.fr</a>,
+        3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07.
+      </p>
+
+      <h2>Sécurité</h2>
+      <p>
+        Le site est servi intégralement en HTTPS&nbsp;: les informations que vous saisissez
+        dans le formulaire circulent chiffrées. Le formulaire est protégé contre les envois
+        automatisés, sans recours à un service tiers de type captcha qui traçerait votre
+        navigation.
+      </p>
+
+      <h2>Modifications</h2>
+      <p>
+        Cette politique peut évoluer, notamment si un outil de mesure d'audience est mis en
+        place. Toute modification substantielle sera signalée sur cette page.
+      </p>
+
+      <p>
+        Pour les informations relatives à l'éditeur du site et à l'hébergement, consultez
+        les <a href="/mentions-legales/">mentions légales</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

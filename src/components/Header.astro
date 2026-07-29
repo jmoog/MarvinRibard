@@ -1,0 +1,206 @@
+---
+// Header à deux barres :
+// 1. barre bleu nuit — téléphone + liens institutionnels
+// 2. barre claire — logo + menu services (les 8 services de l'Essonne)
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+import IconeMobile from './IconeMobile.astro';
+import PastilleFleche from './PastilleFleche.astro';
+
+const chemin = Astro.url.pathname;
+const actif = (url: string) => chemin === url;
+// Seuls les services dont la page est rédigée sont liés (drapeau `actif` dans
+// services.json). Les autres restent dans les données mais ne sont proposés
+// nulle part : un lien vers une page inexistante coûte plus qu'il ne rapporte.
+const menuServices = services.filter((s) => s.actif);
+---
+<!-- Menu secondaire : les entrées « À propos », « Avis clients » et
+     « Réalisations » ont été retirées le 29/07/2026. Règle du projet : aucun
+     lien vers une page non rédigée. Les remettre quand les pages existent. -->
+<header class="entete">
+  <div class="entete__topbar">
+    <div class="conteneur entete__topbar-int">
+      <a href={`tel:${ent.telephoneLien}`} class="entete__tel">
+        <IconeMobile />
+        {ent.telephone}
+      </a>
+      <nav aria-label="Navigation secondaire">
+        <ul class="entete__liens">
+          <li><a href="/" aria-current={actif('/') ? 'page' : undefined}>Accueil</a></li>
+          <li><a href="/couvreur-45/" aria-current={actif('/couvreur-45/') ? 'page' : undefined}>Loiret&nbsp;(45)</a></li>
+          <li><a href="/contact/" aria-current={actif('/contact/') ? 'page' : undefined}>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="entete__principal">
+    <div class="conteneur entete__principal-int">
+      <a href="/" class="entete__marque" aria-label={`${ent.nom} — retour à l'accueil`}>
+        <img
+          src="/images/logo-marvin-ribard-couvreur.webp"
+          alt={`Logo ${ent.nom} — artisan couvreur dans le Sud de l'Essonne`}
+          width="90"
+          height="90"
+        />
+      </a>
+
+      <nav class="entete__nav" aria-label="Navigation principale">
+        <button class="entete__burger" type="button" aria-expanded="false" aria-controls="menu-principal">
+          <span class="visuallyhidden">Menu</span>
+          <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <ul id="menu-principal" class="entete__menu">
+          {menuServices.map((s) => (
+            <li>
+              <a href={s.url91} aria-current={actif(s.url91) ? 'page' : undefined}>{s.labelNav}</a>
+            </li>
+          ))}
+          <li class="entete__menu-cta"><a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge"><IconeMobile />{ent.telephone}</a></li>
+          <li class="entete__menu-cta"><a href="/contact/" class="btn btn--bleu">Devis gratuit<PastilleFleche /></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .entete {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: var(--ombre);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .entete--cachee { transform: translateY(-100%); }
+
+  /* ── Barre 1 : bleu nuit ──────────────────────────────────── */
+  .entete__topbar { background: var(--bleu); }
+  .entete__topbar-int {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 0.55rem;
+  }
+  .entete__tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    background: var(--rouge);
+    color: var(--blanc);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 0.45em 1em;
+    border-radius: var(--rayon);
+    white-space: nowrap;
+    transition: background var(--transition);
+  }
+  .entete__tel:hover { background: var(--rouge-fonce); color: var(--blanc); }
+  .entete__liens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .entete__liens a {
+    color: var(--blanc);
+    font-weight: 600;
+    font-size: 0.93rem;
+    text-decoration: none;
+  }
+  .entete__liens a:hover { text-decoration: underline; color: var(--blanc); }
+  .entete__liens a[aria-current='page'] { color: var(--rouge); }
+
+  /* ── Barre 2 : claire, logo + services ────────────────────── */
+  .entete__principal { background: var(--bleu-pale); }
+  .entete__principal-int {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 0.4rem;
+  }
+  .entete__marque img { height: 72px; width: auto; }
+
+  .entete__menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .entete__menu a:not(.btn) {
+    text-decoration: none;
+    color: var(--bleu);
+    font-weight: 600;
+    font-size: 0.96rem;
+    transition: color var(--transition);
+  }
+  .entete__menu a:not(.btn):hover { color: var(--rouge); }
+  .entete__menu a[aria-current='page'] { color: var(--rouge); }
+  .entete__menu-cta { display: none; }
+
+  .entete__burger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--bleu);
+    padding: 0.4rem;
+    cursor: pointer;
+  }
+  .entete__burger .icone { width: 1.9rem; height: 1.9rem; }
+
+  @media (max-width: 1180px) {
+    .entete__liens { display: none; }
+    .entete__topbar-int { justify-content: center; }
+  }
+  @media (max-width: 900px) {
+    .entete__topbar { display: none; }
+    .entete__burger { display: block; }
+    .entete__menu {
+      display: none;
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--blanc);
+      box-shadow: var(--ombre-forte);
+      padding: 0.5rem 1rem 1.2rem;
+    }
+    .entete__menu.ouvert { display: flex; }
+    .entete__menu li { border-bottom: 1px solid var(--gris-100); }
+    .entete__menu a:not(.btn) { display: block; padding: 0.8em 0.2em; font-size: 1.02rem; }
+    .entete__menu-cta { display: block; border-bottom: none !important; padding-top: 0.8rem; }
+    .entete__menu-cta .btn { width: 100%; }
+  }
+</style>
+
+<script>
+  const burger = document.querySelector('.entete__burger');
+  const menu = document.getElementById('menu-principal');
+  burger?.addEventListener('click', () => {
+    const ouvert = menu?.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded', String(Boolean(ouvert)));
+  });
+
+  // Mobile : le header s'efface après 900 px de scroll (sauf menu ouvert)
+  const entete = document.querySelector('.entete');
+  const mobile = window.matchMedia('(max-width: 900px)');
+  let tick = false;
+  window.addEventListener('scroll', () => {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(() => {
+      const cacher = mobile.matches && window.scrollY > 900 && !menu?.classList.contains('ouvert');
+      entete?.classList.toggle('entete--cachee', Boolean(cacher));
+      tick = false;
+    });
+  }, { passive: true });
+</script>

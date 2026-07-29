@@ -1,0 +1,156 @@
+{
+  "_note": "18 avis Google, tous 5 étoiles. Les dates relatives du copier-coller Google (« il y a 2 semaines », « il y a 39 semaines »…) ont été converties en dates absolues à partir du 26 juillet 2026. Consigne client : cards avec étoiles + logo Google, PAS d'initiales dans un cercle.",
+  "_noteBalisage": "AFFICHAGE SEUL — ces avis ne sont PAS balisés en JSON-LD. Google exclut les avis auto-déclarés sur son propre site (« self-serving reviews ») des rich results LocalBusiness et Organization : les baliser n'apporte aucune étoile en SERP et expose à une action manuelle. Les étoiles Google se gagnent sur la fiche Business Profile, pas dans le code du site.",
+  "note": 4.9,
+  "nombre": 18,
+  "urlFiche": "https://maps.app.goo.gl/ey2fLkSGiJQVQK1C6",
+
+  "avis": [
+    {
+      "auteur": "Josee Singlis",
+      "date": "Juillet 2026",
+      "dateISO": "2026-07-24",
+      "note": 5,
+      "texte": "Artisan couvreur très professionnel, travail soigné et de qualité. À l'écoute, ponctuel et de bons conseils. Je recommande sans hésiter !",
+      "tags": ["renovation", "reparation"]
+    },
+    {
+      "auteur": "Sandrine Gayet",
+      "date": "Juillet 2026",
+      "dateISO": "2026-07-12",
+      "note": 5,
+      "texte": "J'ai fait appel à M. Ribard Couverture pour un nettoyage de toiture. Très bon travail, je suis ravie du résultat ! Artisan sérieux, professionnel et à l'écoute. Travail soigné avec un résultat de qualité. Chantier terminé dans les délais. Je recommande cette entreprise sans hésiter.",
+      "tags": ["nettoyage"]
+    },
+    {
+      "auteur": "Maryse Locke",
+      "date": "Mai 2026",
+      "dateISO": "2026-05-24",
+      "note": 5,
+      "texte": "Cela fait la troisième fois que je fais appel à l'entreprise Marvin Ribard pour faire l'entretien chez moi. Cette fois-ci c'était pour karchériser et imperméabiliser toutes les dalles de la terrasse. Les faits parlent d'eux-mêmes : je n'aurais pas fait appel à cette entreprise trois fois de suite si je n'avais pas eu confiance que la qualité y serait.",
+      "tags": ["nettoyage"]
+    },
+    {
+      "auteur": "kami vampi",
+      "date": "Mai 2026",
+      "dateISO": "2026-05-17",
+      "note": 5,
+      "texte": "Une entreprise sérieuse, professionnelle et à l'écoute. Je suis très satisfait d'avoir fait appel à M. Ribard, qui a su faire preuve de disponibilité et de savoir-faire. Le résultat est impeccable, mon toit est comme neuf ! Je recommande cette entreprise les yeux fermés.",
+      "tags": ["renovation", "nettoyage"]
+    },
+    {
+      "auteur": "Delaporte Justine",
+      "date": "Mars 2026",
+      "dateISO": "2026-03-22",
+      "note": 5,
+      "texte": "Prestation rapide et de qualité.",
+      "tags": []
+    },
+    {
+      "auteur": "Hervé Bousquet",
+      "date": "Octobre 2025",
+      "dateISO": "2025-10-26",
+      "note": 5,
+      "texte": "Suite à un problème sur ma toiture (rives à rénover), j'ai contacté l'entreprise Marvin Ribard pour obtenir un devis et connaître sa possibilité d'intervention. Le devis m'a été présenté très rapidement et l'intervention effectuée le lendemain de mon acceptation. La prestation a été réalisée correctement et dans les délais annoncés. Personnel compétent et agréable. Je recommande fortement l'entreprise Marvin Ribard pour sa rapidité et son efficacité.",
+      "tags": ["zinguerie", "reparation"]
+    },
+    {
+      "auteur": "Christiane Bertrand",
+      "date": "Octobre 2025",
+      "dateISO": "2025-10-19",
+      "note": 5,
+      "texte": "Très professionnel, travail propre, devis rapide comme les travaux. Équipe sérieuse. Je peux conseiller cette entreprise sans hésiter.",
+      "tags": []
+    },
+    {
+      "auteur": "Sophie Kilendo",
+      "date": "Septembre 2025",
+      "dateISO": "2025-09-07",
+      "note": 5,
+      "texte": "L'intervention très rapide de M. Ribard, son expérience et ses explications claires ont été particulièrement appréciées pour régler un problème de fuite sur la toiture.",
+      "tags": ["reparation", "zinguerie"]
+    },
+    {
+      "auteur": "Françoise Houdin",
+      "date": "Août 2025",
+      "dateISO": "2025-08-10",
+      "note": 5,
+      "texte": "Le nettoyage de notre toit de maison effectué par M. Ribard a été réalisé avec sérieux.",
+      "tags": ["nettoyage"]
+    },
+    {
+      "auteur": "Cynthia De Sousa",
+      "date": "Juin 2025",
+      "dateISO": "2025-06-17",
+      "note": 5,
+      "texte": "Très bon couvreur, tant par sa disponibilité, ses explications et ses conseils que par son professionnalisme.",
+      "tags": []
+    },
+    {
+      "auteur": "Famille PB",
+      "date": "Juin 2025",
+      "dateISO": "2025-06-10",
+      "note": 5,
+      "texte": "Efficace, sérieux, ponctuel, travail bien fait, je ne peux que recommander.",
+      "tags": []
+    },
+    {
+      "auteur": "F. G.",
+      "date": "Mai 2025",
+      "dateISO": "2025-05-22",
+      "note": 5,
+      "texte": "Écoute, sérieux et disponible.",
+      "tags": []
+    },
+    {
+      "auteur": "M. C. (Sermaises)",
+      "date": "Mai 2025",
+      "dateISO": "2025-05-16",
+      "note": 5,
+      "texte": "Malgré des imprévus, Monsieur Ribard a tenu à respecter le devis pour la réfection des deux côtés de la maison. Trois jours de chantier comme prévu, à la période convenue. Le résultat concrétise nos attentes. Nous conseillons cet artisan les yeux fermés.",
+      "tags": ["renovation"],
+      "ville": "Sermaises"
+    },
+    {
+      "auteur": "Patricia Naudé",
+      "date": "Octobre 2024",
+      "dateISO": "2024-10-12",
+      "note": 5,
+      "texte": "Suite à une fuite sur la toiture de ma maman, nous avons fait appel à Monsieur Ribard. Il est intervenu rapidement, a vu de suite le problème et nous a fait un devis gratuit. Nous avons apprécié sa gentillesse et son efficacité. La toiture a été démoussée, traitée, et il a effectué une réparation sur le toit. Aujourd'hui plus de fuite, nous sommes très contents de ce qu'il a accompli.",
+      "tags": ["reparation", "nettoyage"]
+    },
+    {
+      "auteur": "Ludovic Ciliotta",
+      "date": "Septembre 2024",
+      "dateISO": "2024-09-13",
+      "note": 5,
+      "texte": "Je suis extrêmement satisfait du travail réalisé par Monsieur Ribard pour la réfection du toit de ma cave. Dès le premier contact, il s'est montré professionnel, à l'écoute, et a bien pris en compte mes attentes. Le chantier a été exécuté avec soin et précision, dans des délais rapides, sans compromettre la qualité du travail. Le résultat est impeccable, et tout a été laissé propre après les travaux.",
+      "tags": ["renovation"]
+    },
+    {
+      "auteur": "Jean-Michel Grellet",
+      "date": "Août 2024",
+      "dateISO": "2024-08-22",
+      "note": 5,
+      "texte": "Artisan disponible et de bon conseil, qui respecte ses délais.",
+      "tags": []
+    },
+    {
+      "auteur": "Marie-Ange Morand",
+      "date": "Juillet 2024",
+      "dateISO": "2024-07-07",
+      "note": 5,
+      "texte": "Intervention sur la toiture, qui a retrouvé toute sa jeunesse. Je recommande M. Ribard pour son professionnalisme, son sérieux, sa rapidité et le suivi des travaux.",
+      "tags": ["renovation", "nettoyage"]
+    },
+    {
+      "auteur": "Monia Gayet",
+      "date": "Mai 2024",
+      "dateISO": "2024-05-09",
+      "note": 5,
+      "texte": "J'ai fait intervenir M. Ribard pour réparer le faîtage de ma maison à Méréville. Dès le premier contact il s'est montré professionnel et à l'écoute de mon problème. Il est intervenu rapidement pour effectuer la réparation de ma toiture. Il a pris le temps de rédiger un devis gratuit avant d'intervenir. Je recommande vivement les services de M. Ribard : rapide, sérieux, efficace.",
+      "tags": ["reparation", "zinguerie"],
+      "ville": "Méréville"
+    }
+  ]
+}

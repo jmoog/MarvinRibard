@@ -1,0 +1,129 @@
+---
+/**
+ * Page 404. En `noindex` : une page d'erreur n'a rien à faire dans l'index.
+ *
+ * Elle sert à deux choses — rattraper le visiteur avec des liens utiles, et
+ * lui donner le téléphone tout de suite. Un visiteur perdu sur un site
+ * d'artisan est souvent un visiteur pressé.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IconeMobile from '../components/IconeMobile.astro';
+import PastilleFleche from '../components/PastilleFleche.astro';
+import services from '../data/services.json';
+import villes from '../data/villes.json';
+import ent from '../data/entreprise.json';
+
+const actifs = services.filter((s) => s.actif);
+// Les 6 communes les plus proches du siège : de quoi retomber sur ses pieds
+// sans dérouler les seize.
+const proches = [...villes]
+  .sort((a, b) => (a.distanceKm ?? 99) - (b.distanceKm ?? 99))
+  .slice(0, 6);
+---
+<BaseLayout
+  title="Page introuvable — Marvin Ribard Couverture"
+  description="Cette page n'existe pas ou plus. Retrouvez mes prestations de couvreur et mes communes d'intervention."
+  noindex={true}
+>
+  <section class="section erreur">
+    <div class="conteneur erreur__entete">
+      <p class="erreur__code" aria-hidden="true">404</p>
+      <h1>Cette page n'existe pas, ou plus</h1>
+      <p class="erreur__texte">
+        Le lien que vous avez suivi ne mène nulle part. Ça arrive — voici de quoi
+        retrouver votre chemin. Et si vous êtes pressé, le plus simple reste
+        encore de m'appeler.
+      </p>
+      <div class="erreur__actions">
+        <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+          <IconeMobile />{ent.telephone}
+        </a>
+        <a href="/contact/" class="btn btn--contour-bleu btn--grand">
+          Demander un devis gratuit<PastilleFleche />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="erreur__colonnes">
+        <div class="erreur__colonne">
+          <h2>Mes prestations</h2>
+          <ul>
+            {actifs.map((s) => <li><a href={s.url91}>{s.label}</a></li>)}
+          </ul>
+        </div>
+
+        <div class="erreur__colonne">
+          <h2>Mes communes</h2>
+          <ul>
+            {proches.map((v) => <li><a href={v.url}>Couvreur à {v.nom}</a></li>)}
+          </ul>
+        </div>
+
+        <div class="erreur__colonne">
+          <h2>Le reste du site</h2>
+          <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/couvreur-45/">Couvreur dans le Loiret (45)</a></li>
+            <li><a href="/contact/">Contact et devis gratuit</a></li>
+            <li><a href="/plan-du-site/">Plan du site</a></li>
+            <li><a href="/mentions-legales/">Mentions légales</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .erreur__entete { max-width: 62ch; margin-inline: auto; text-align: center; }
+  .erreur__code {
+    font-size: clamp(5rem, 18vw, 9rem);
+    font-weight: 800;
+    line-height: 0.9;
+    color: var(--bleu-pale);
+    letter-spacing: -0.03em;
+    margin-bottom: 0.4rem;
+  }
+  .erreur h1 { text-align: center; }
+  .erreur__texte { margin-top: 1rem; }
+  .erreur__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .erreur__colonnes {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .erreur__colonne h2 {
+    font-size: 1.05rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 2px solid var(--rouge);
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  .erreur__colonne ul { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+  .erreur__colonne a {
+    color: var(--gris-700);
+    text-decoration: none;
+    font-size: 0.94rem;
+    position: relative;
+    padding-left: 0.95rem;
+    display: inline-block;
+  }
+  .erreur__colonne a::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--rouge);
+    font-weight: 700;
+  }
+  .erreur__colonne a:hover { color: var(--rouge-fonce); text-decoration: underline; }
+</style>

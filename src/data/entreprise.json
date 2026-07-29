@@ -1,0 +1,133 @@
+{
+  "_note": "SOURCE DE VÉRITÉ NAP ET INFORMATIONS LÉGALES — toute mention du nom, du téléphone, de l'adresse, des horaires ou des identifiants dans le site doit provenir de ce fichier. Ne jamais réécrire ces valeurs en dur dans une page.",
+  "_sources": "Données légales : RNE (mise à jour 26/07/2026) et INSEE (25/07/2026), via Pappers. Coordonnées : fiche Google Business Profile et site WordPress.",
+  "nom": "Marvin Ribard Couverture",
+  "_nomNote": "Nom d'affichage retenu = celui de la fiche Google Business Profile et des réponses aux avis. C'est la référence de citation locale : header, footer, H1 et annuaires doivent tous porter cette forme exacte.",
+  "nomCommercial": "RIBARD COUVERTURE",
+  "_nomCommercialNote": "Nom commercial déclaré au RNE pour l'établissement principal. Il diffère du nom Google. À réserver aux mentions légales et aux documents administratifs.",
+  "nomLegal": "RIBARD MARVIN",
+  "nomExploitant": "Marvin Ribard",
+  "formeJuridique": "Entrepreneur individuel",
+  "microEntreprise": true,
+  "alternateName": [
+    "RIBARD COUVERTURE",
+    "M. Ribard Couverture",
+    "Marvin Ribard Artisan Couvreur",
+    "Couvreur Méréville"
+  ],
+  "siren": "843430984",
+  "sirenAffichage": "843 430 984",
+  "siret": "84343098400024",
+  "siretAffichage": "843 430 984 00024",
+  "_siretAlerte": "Les mentions légales du site WordPress affichaient 484343098400024 (15 chiffres, invalide). Valeur confirmée par le RNE et corrigée ici.",
+  "tvaIntracommunautaire": "FR46843430984",
+  "_tvaNote": "⚠️ À CONFIRMER AVEC M. RIBARD avant publication des mentions légales. L'entreprise est en micro-entreprise : si elle relève de la franchise en base de TVA, les devis et factures doivent porter « TVA non applicable, art. 293 B du CGI » et le numéro de TVA ne doit pas être présenté comme si la TVA était facturée. Un numéro de TVA existe pour toute entreprise, y compris en franchise — sa présence ne prouve rien.",
+  "immatriculation": {
+    "rcs": null,
+    "_rcsNote": "NON INSCRIT AU RCS. Les mentions légales ne doivent donc PAS mentionner de numéro RCS — erreur fréquente. L'entreprise est inscrite au RNE (Répertoire National des Entreprises), qui a remplacé le Répertoire des Métiers depuis 2023.",
+    "rne": true,
+    "rneLibelle": "Inscrit au Répertoire National des Entreprises (RNE)",
+    "codeApe": "43.91B",
+    "libelleApe": "Travaux de couverture par éléments",
+    "formesExercice": [
+      "Artisanale réglementée",
+      "Artisanale non réglementée"
+    ]
+  },
+  "anneeCreation": 2018,
+  "dateCreation": "2018-10-29",
+  "dateEtablissementActuel": "2023-08-23",
+  "_historiqueNote": "Première immatriculation le 29/10/2018 (établissement à Ollainville, activité nettoyage de bâtiments, fermé le 31/12/2020). Établissement actuel de Méréville ouvert le 23/08/2023. Il y a donc une interruption d'activité entre 2021 et mi-2023. Formulation prudente et vérifiable à utiliser sur le site : « à son compte depuis 2018 » ou « entreprise immatriculée en 2018 ». Ne pas écrire « X ans d'expérience continue ». À arbitrer avec M. Ribard, qui a pu travailler comme salarié entre-temps.",
+  "effectif": 0,
+  "_effectifNote": "0 salarié (donnée INSEE 2026). Artisan seul : c'est un argument (un seul interlocuteur, pas de sous-traitance) autant qu'une limite de capacité à ne pas survendre.",
+  "dirigeantNaissance": "1989-01",
+  "telephone": "06 22 62 09 86",
+  "telephoneUri": "+33622620986",
+  "telephoneLien": "0622620986",
+  "email": "monsieur.ribard@gmail.com",
+  "adresse": {
+    "rue": "3 Avenue du Maréchal Foch",
+    "codePostal": "91660",
+    "ville": "Le Mérévillois",
+    "villeUsuelle": "Méréville",
+    "region": "Île-de-France",
+    "pays": "FR"
+  },
+  "geo": {
+    "latitude": 48.3142737,
+    "longitude": 2.0970411
+  },
+  "horaires": {
+    "_note": "3 versions contradictoires cohabitaient sur le site WordPress (L-D 8h-20h / L-S 8h-20h / L-D 7h-20h). Version unique retenue ici, à confirmer avec M. Ribard et à aligner sur la fiche Google Business Profile.",
+    "jours": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "ouverture": "08:00",
+    "fermeture": "20:00",
+    "libelle": "Du lundi au samedi, de 8h à 20h",
+    "urgence": "Interventions d'urgence possibles en dehors de ces horaires"
+  },
+  "zone": {
+    "_note": "Périmètre unique retenu, à tenir partout sur le site. Le site WordPress en revendiquait trois différents.",
+    "libelleCourt": "Sud de l'Essonne et Nord du Loiret",
+    "libelleLong": "le Sud de l'Essonne (91) et le Nord du Loiret (45)",
+    "departements": [
+      "Essonne (91)",
+      "Loiret (45)",
+      "Eure-et-Loir (28)"
+    ],
+    "rayonKm": 40,
+    "_noteLibelle": "⚠️ Le client a annoncé le 29/07/2026 une intervention dans le 28 en plus du 91 et du 45. `departements` (donc le areaServed du JSON-LD) a été mis à jour. En revanche `libelleCourt` et `libelleLong` ne citent toujours que l'Essonne et le Loiret : ils alimentent le pied de page, l'og:site_name et plusieurs pages. À arbitrer avec M. Ribard avant de les changer partout."
+  },
+  "activites": {
+    "principale": "Travaux de couverture",
+    "secondaires": [
+      "Travaux de peinture intérieure et extérieure",
+      "Travaux de terrassement"
+    ],
+    "_opportunite": "Les activités de peinture et de nettoyage sont déclarées au RNE et confirmées par deux avis clients (peinture extérieure d'un mur de propriété, karchérisage et imperméabilisation de dalles de terrasse), mais N'APPARAISSENT NULLE PART sur le site. Les 5 photos `nettoyage-facade-nacelle-*.webp` du dossier restent d'ailleurs inutilisées faute de page correspondante. Une page « Nettoyage de façade » (URL nouvelle, sans impact sur les 33 existantes) capterait une demande réelle et déjà servie.",
+    "ancienneActivite": "Nettoyage courant des bâtiments (81.21Z), établissement d'Ollainville fermé fin 2020"
+  },
+  "assurance": {
+    "_aFournir": "EN ATTENTE — M. Ribard doit fournir son attestation de décennale. Obligation légale d'affichage (art. L.243-2 du Code des assurances), absente du site WordPress. Tant que ces champs sont vides, aucune mention d'assurance n'est affichée nulle part sur le site : ne jamais écrire « garantie décennale » en dur dans une page sans l'attestation.",
+    "decennaleAssureur": "",
+    "decennalePolice": "",
+    "decennaleCouverture": "France métropolitaine"
+  },
+  "certifications": {
+    "_aFournir": "L'activité de couverture est classée « artisanale réglementée » au RNE : elle suppose un CAP/BP du métier ou trois ans d'expérience salariée validés. M. Ribard remplit donc l'une des deux conditions — savoir laquelle est un vrai argument d'autorité pour la page À propos. Demander aussi une éventuelle qualification RGE ou Qualibat.",
+    "liste": []
+  },
+  "conformite": {
+    "_note": "RNE au 26/07/2026 : 0 procédure collective, 0 contentieux, 0 sanction. Rien à signaler, mais utile à savoir avant de mettre en avant l'ancienneté.",
+    "procedureCollective": false
+  },
+  "mediateurConsommation": {
+    "_aFournir": "OBLIGATION LÉGALE pour un professionnel qui traite avec des particuliers (art. L.616-1 du Code de la consommation) : nom et coordonnées du médiateur de la consommation auquel l'entreprise adhère. Absent du site WordPress. À faire souscrire si ce n'est pas déjà le cas.",
+    "nom": "",
+    "site": "",
+    "adresse": ""
+  },
+  "reseaux": {
+    "googleBusinessProfile": "https://maps.app.goo.gl/ey2fLkSGiJQVQK1C6",
+    "_note": "Fiche Google Business Profile. Utilisée pour le champ sameAs du JSON-LD et pour renvoyer les visiteurs vers les avis. PAS d'AggregateRating dans le balisage : voir src/lib/schemas.ts."
+  },
+  "hebergeur": {
+    "_note": "À mettre à jour selon l'hébergement Node retenu pour la nouvelle version. Valeur du site WordPress conservée à titre indicatif.",
+    "nom": "Easy Hoster (Kim Communication Ltd)",
+    "adresse": "Unit G 15/F Tal Building, Austin Road 49, Kowloon, 999077, Hong Kong"
+  },
+  "conception": {
+    "nom": "Moog Digital Factory France",
+    "email": "joseph@moog-digital-factory.fr"
+  },
+  "sitePrecedent": {
+    "cms": "WordPress + Breakdance (thème breakdance-zero)",
+    "urlsConservees": 33
+  }
+}

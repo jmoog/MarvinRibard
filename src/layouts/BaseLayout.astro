@@ -1,0 +1,196 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingContact from '../components/FloatingContact.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Ne renseigner que pour forcer une canonique différente de l'URL courante. */
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  /** Schémas JSON-LD propres à la page (BreadcrumbList, Service, FAQPage…) */
+  extraSchemas?: object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/images/logo-marvin-ribard-couvreur.webp',
+  noindex = false,
+  extraSchemas = [],
+} = Astro.props;
+
+// Astro est configuré en trailingSlash:'always' — la canonique reprend donc
+// l'URL exacte de la page WordPress d'origine, slash final compris.
+const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+
+const ID_ENTREPRISE = `${Astro.site}#localbusiness`;
+
+// Entité principale du site. C'est ce bloc qui manquait entièrement sur le
+// site WordPress : les cinq schémas ProfessionalService qui existaient
+// portaient un nom de SERVICE et non le nom de l'entreprise, ce qui empêchait
+// Google de consolider une entité unique.
+const schemaEntreprise: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'RoofingContractor',
+  '@id': ID_ENTREPRISE,
+  name: ent.nom,
+  alternateName: ent.alternateName,
+  legalName: ent.nomLegal,
+  description,
+  url: Astro.site?.toString(),
+  image: new URL('/images/logo-marvin-ribard-couvreur.webp', Astro.site).toString(),
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/images/logo-marvin-ribard-couvreur.webp', Astro.site).toString(),
+    caption: `Logo ${ent.nom} — artisan couvreur à ${ent.adresse.villeUsuelle}`,
+  },
+  telephone: ent.telephoneUri,
+  email: ent.email,
+  founder: { '@type': 'Person', name: ent.nomExploitant },
+  foundingDate: ent.dateCreation,
+  numberOfEmployees: { '@type': 'QuantitativeValue', value: ent.effectif + 1 },
+  priceRange: '€€',
+  currenciesAccepted: 'EUR',
+  paymentAccepted: 'Espèces, Chèque, Virement bancaire',
+  // Identifiants officiels : ils ancrent l'entité sur des données publiques
+  // (RNE, INSEE) et fiabilisent le rapprochement avec les annuaires locaux.
+  identifier: [
+    { '@type': 'PropertyValue', propertyID: 'SIREN', value: ent.siren },
+    { '@type': 'PropertyValue', propertyID: 'SIRET', value: ent.siret },
+    { '@type': 'PropertyValue', propertyID: 'APE', value: ent.immatriculation.codeApe },
+  ],
+  // vatID n'est déclaré que si l'assujettissement à la TVA est confirmé :
+  // l'entreprise est en micro-entreprise et relève probablement de la
+  // franchise en base (art. 293 B du CGI). Voir la note dans entreprise.json.
+  naics: undefined,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: ent.adresse.rue,
+    postalCode: ent.adresse.codePostal,
+    addressLocality: ent.adresse.ville,
+    addressRegion: ent.adresse.region,
+    addressCountry: ent.adresse.pays,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: ent.geo.latitude, longitude: ent.geo.longitude },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ent.horaires.jours,
+      opens: ent.horaires.ouverture,
+      closes: ent.horaires.fermeture,
+    },
+  ],
+  areaServed: ent.zone.departements.map((d) => ({ '@type': 'AdministrativeArea', name: d })),
+  knowsAbout: services.map((s) => s.label),
+};
+
+// Fiche Google Business Profile — c'est elle qui porte les avis et les étoiles
+// en SERP, pas le balisage du site.
+//
+// PAS d'AggregateRating ni de Review ici, volontairement : Google exclut les
+// avis auto-déclarés sur son propre site (« self-serving reviews ») des rich
+// results LocalBusiness et Organization. Les baliser n'apporterait aucune
+// étoile et exposerait à une action manuelle. Les 18 avis restent affichés
+// dans les pages, en contenu visible.
+if (ent.reseaux.googleBusinessProfile) {
+  schemaEntreprise.sameAs = [ent.reseaux.googleBusinessProfile];
+  schemaEntreprise.hasMap = ent.reseaux.googleBusinessProfile;
+}
+---
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicons refaits le 28/07/2026 : l'ancien jeu reprenait le logo complet,
+         anneau de texte compris, illisible sous 48 px et invisible sur les
+         onglets sombres. Le nouveau ne garde que l'emblème (toit + tuiles) sur
+         un disque blanc cerclé de bleu. -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Montserrat auto-hébergée : @font-face + WOFF2 servis depuis le domaine.
+         Aucune requête vers Google Fonts, conforme CNIL. -->
+    <Font cssVariable="--font-montserrat" preload />
+
+    <!-- Vérification de propriété Google Search Console.
+         À conserver tant que la propriété est vérifiée par balise HTML :
+         la retirer déverrouille la propriété et fait perdre l'accès aux
+         données. -->
+    <meta name="google-site-verification" content="gkjQjLuzbsQO8KIZtMzMdIee9RjQMX0Bzgp8g1vFpSU" />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={`${ent.nom} — artisan couvreur dans le Sud de l'Essonne`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).toString()} />
+
+    <!-- Géolocalisation -->
+    <meta name="geo.region" content="FR-91" />
+    <meta name="geo.placename" content={`${ent.adresse.villeUsuelle}, Essonne`} />
+    <meta name="geo.position" content={`${ent.geo.latitude};${ent.geo.longitude}`} />
+    <meta name="ICBM" content={`${ent.geo.latitude}, ${ent.geo.longitude}`} />
+
+    <!-- Entité principale : RoofingContractor, @id stable réutilisé par les
+         schémas Service et BreadcrumbList de chaque page. -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaEntreprise)} />
+
+    {extraSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+  </head>
+  <body>
+    <a href="#contenu" class="lien-evitement">Aller au contenu</a>
+    <Header />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingContact />
+    <CookieBanner />
+  </body>
+</html>
+
+<style>
+  .lien-evitement {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 0.8em 1.2em;
+    background: var(--bleu);
+    color: var(--blanc);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .lien-evitement:focus {
+    left: 1rem;
+    top: 1rem;
+    color: var(--blanc);
+  }
+</style>

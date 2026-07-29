@@ -1,0 +1,55 @@
+---
+/**
+ * URL nouvelle : /merci/
+ *
+ * Page d'arrivée après l'envoi du formulaire de devis. Elle est exclue du
+ * sitemap (voir le filtre dans astro.config.mjs) et passée en `noindex` :
+ * une page de confirmation n'a rien à faire dans l'index de Google, et
+ * l'y laisser fausserait les statistiques de conversion.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IconeMobile from '../components/IconeMobile.astro';
+import ent from '../data/entreprise.json';
+
+const title = 'Votre demande est bien partie — Marvin Ribard';
+const description = "Votre demande de devis a bien été envoyée. Je vous recontacte sous 48 heures.";
+---
+<BaseLayout title={title} description={description} noindex={true}>
+  <section class="section section--bleute merci">
+    <div class="conteneur merci__bloc">
+      <svg class="merci__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.2 2.4 2.4 4.6-4.9"/></svg>
+
+      <h1>Votre demande est bien partie</h1>
+
+      <p>
+        Je l'ai reçue et vous allez recevoir un email de confirmation dans les
+        minutes qui viennent. Je vous rappelle sous <strong>48 heures</strong>
+        pour convenir d'un rendez-vous et venir voir votre toiture.
+      </p>
+
+      <p class="merci__urgence">
+        Si l'eau entre déjà chez vous, n'attendez pas mon rappel :
+      </p>
+
+      <div class="merci__actions">
+        <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+          <IconeMobile />{ent.telephone}
+        </a>
+        <a href="/" class="btn btn--contour-bleu btn--grand">Retour à l'accueil</a>
+      </div>
+
+      <p class="merci__horaires">{ent.horaires.libelle} · {ent.horaires.urgence}</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .merci { text-align: center; }
+  .merci__bloc { max-width: 58ch; margin-inline: auto; }
+  .merci__icone { width: 72px; height: 72px; color: var(--rouge); margin: 0 auto 1.2rem; }
+  .merci h1 { text-align: center; }
+  .merci p { margin-top: 1rem; }
+  .merci__urgence { margin-top: 1.8rem !important; font-weight: 600; color: var(--bleu); }
+  .merci__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1rem; }
+  .merci__horaires { font-size: 0.88rem; color: var(--gris-500); margin-top: 1.4rem !important; }
+</style>

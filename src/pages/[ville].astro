@@ -1,0 +1,38 @@
+---
+/**
+ * Route dynamique des pages villes de l'Essonne.
+ *
+ * Le paramètre EST le slug complet de l'URL WordPress d'origine
+ * (`couvreur-a-etampes-91150`), ce qui garantit que les 10 URLs historiques
+ * sont reproduites au caractère près, slash final compris.
+ * `getStaticPaths` ne renvoie que ces slugs : la route ne capte rien d'autre,
+ * et une page statique du même chemin resterait prioritaire.
+ *
+ * Malesherbes n'est pas ici : elle vit dans le silo /couvreur-45/ et a donc
+ * son propre fichier, qui réutilise le même composant PageVille.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageVille from '../components/PageVille.astro';
+import villes from '../data/villes.json';
+import { breadcrumb, pageVille } from '../lib/schemas';
+
+export function getStaticPaths() {
+  return villes
+    .filter((v) => !('dept' in v) || v.dept !== 45)
+    .map((v) => ({
+      // '/couvreur-a-etampes-91150/' → 'couvreur-a-etampes-91150'
+      params: { ville: v.url.replace(/^\/|\/$/g, '') },
+      props: { ville: v },
+    }));
+}
+
+const { ville } = Astro.props;
+
+const extraSchemas = [
+  breadcrumb([{ nom: `Couvreur à ${ville.nom}`, url: ville.url }]),
+  pageVille(ville),
+];
+---
+<BaseLayout title={ville.title} description={ville.meta} extraSchemas={extraSchemas}>
+  <PageVille ville={ville} />
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+// Barre d'appel flottante, visible sur mobile uniquement après un début de
+// scroll. Un artisan se contacte au téléphone : c'est le premier levier de
+// conversion du site.
+import ent from '../data/entreprise.json';
+import IconeMobile from './IconeMobile.astro';
+import PastilleFleche from './PastilleFleche.astro';
+---
+<div class="flottant" data-flottant>
+  <a href={`tel:${ent.telephoneLien}`} class="flottant__btn flottant__btn--tel">
+    <IconeMobile />
+    <span>Appeler</span>
+  </a>
+  <a href="/contact/" class="flottant__btn flottant__btn--devis">
+    <span>Devis gratuit</span>
+    <PastilleFleche />
+  </a>
+</div>
+
+<style>
+  .flottant {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 60;
+    display: none;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 -4px 18px rgba(18, 41, 76, 0.22);
+  }
+  .flottant--visible { transform: translateY(0); }
+  .flottant__btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.95em 0.5em;
+    font-weight: 700;
+    font-size: 0.98rem;
+    text-decoration: none;
+    color: var(--blanc);
+  }
+  .flottant__btn:hover { color: var(--blanc); }
+  .flottant__btn--tel { background: var(--rouge); }
+  .flottant__btn--devis { background: var(--bleu); }
+  .flottant .icone { width: 1.2rem; height: 1.2rem; }
+
+  @media (max-width: 900px) {
+    .flottant { display: flex; }
+    /* Évite que la barre masque la fin du contenu */
+    :global(body) { padding-bottom: 0; }
+  }
+</style>
+
+<script>
+  const barre = document.querySelector('[data-flottant]');
+  let tick = false;
+  const maj = () => {
+    barre?.classList.toggle('flottant--visible', window.scrollY > 400);
+    tick = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(maj);
+  }, { passive: true });
+  maj();
+</script>

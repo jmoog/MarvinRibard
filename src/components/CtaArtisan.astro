@@ -1,0 +1,117 @@
+---
+/**
+ * CTA de fin de page ville — la photo de l'artisan plutôt qu'un aplat de couleur.
+ *
+ * Le titre est passé par la page (clé `ctaTitre` de villes.json) : il change
+ * d'une commune à l'autre, comme le reste des formulations. Voir
+ * src/data/README-redaction-villes.md.
+ *
+ * Aucun sur-titre ici non plus : un seul H2, pas d'eyebrow.
+ */
+import ent from '../data/entreprise.json';
+import IconeMobile from './IconeMobile.astro';
+import PastilleFleche from './PastilleFleche.astro';
+
+export interface Props {
+  titre: string;
+  texte: string;
+}
+const { titre, texte } = Astro.props;
+---
+<section class="cta-artisan">
+  <div class="conteneur cta-artisan__int">
+    <div class="cta-artisan__media">
+      <img
+        src="/images/photos/portrait-marvin-ribard.webp"
+        alt={`${ent.nomExploitant}, artisan couvreur, devant son véhicule d'intervention`}
+        width="646"
+        height="750"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="cta-artisan__texte">
+      <h2>{titre}</h2>
+      <p>{texte}</p>
+
+      <p class="cta-artisan__signature">
+        {ent.nomExploitant}<span>Artisan couvreur zingueur</span>
+      </p>
+
+      <div class="cta-artisan__actions">
+        <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+          <IconeMobile />{ent.telephone}
+        </a>
+        <a href="/contact/" class="btn btn--contour btn--grand">
+          Demander un devis gratuit<PastilleFleche />
+        </a>
+      </div>
+
+      <p class="cta-artisan__horaires">{ent.horaires.libelle} · {ent.horaires.urgence}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-artisan {
+    background: var(--bleu);
+    color: var(--blanc);
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+  }
+  .cta-artisan__int {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .cta-artisan__int { grid-template-columns: 0.8fr 1.2fr; gap: 3.5rem; }
+  }
+
+  .cta-artisan__media img {
+    width: 100%;
+    max-width: 330px;
+    margin-inline: auto;
+    display: block;
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre-forte);
+  }
+
+  .cta-artisan h2 { color: var(--blanc); margin-bottom: 0.8rem; text-align: left; }
+  .cta-artisan p { color: rgba(255, 255, 255, 0.88); margin: 0; }
+
+  /* Signature manuscrite-like : le nom en gros, la fonction en dessous */
+  .cta-artisan__signature {
+    margin-top: 1.4rem !important;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--rouge) !important;
+    line-height: 1.3;
+  }
+  .cta-artisan__signature span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .cta-artisan__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 1.6rem;
+  }
+  .cta-artisan__actions .btn { white-space: nowrap; }
+  .cta-artisan__horaires {
+    margin-top: 1rem !important;
+    font-size: 0.86rem;
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+
+  @media (max-width: 899px) {
+    .cta-artisan h2 { text-align: center; }
+    .cta-artisan__media img { max-width: 240px; }
+    .cta-artisan__actions { justify-content: center; }
+    .cta-artisan__actions .btn { flex: 1 1 100%; }
+  }
+</style>

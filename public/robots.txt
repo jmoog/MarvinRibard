@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Pas d'indexation des pages de confirmation ni de l'API
+Disallow: /merci/
+Disallow: /api/
+
+Sitemap: https://marvin-ribard.fr/sitemap-index.xml

@@ -1,0 +1,166 @@
+[
+  {
+    "cle": "renovation",
+    "labelNav": "Rénovation",
+    "label": "Rénovation de toiture",
+    "labelCourt": "Rénovation de toiture",
+    "accroche": "Toiture ancienne ou fatiguée : dépose complète, reprise de la charpente et couverture neuve, en tuile pays, tuile mécanique, ardoise ou bac acier.",
+    "image": "/images/photos/renovation-toiture-liteaux-velux.webp",
+    "imageWidth": 700,
+    "imageHeight": 467,
+    "alt": "Rénovation de toiture : liteaux neufs et pose d'une fenêtre de toit par Marvin Ribard",
+    "lien": "Rénover ma toiture",
+    "url91": "/renovation-de-toiture-91/",
+    "url45": "/couvreur-45/renovation-de-toiture-dans-le-loiret/",
+    "connexes": [
+      "reparation",
+      "isolation",
+      "zinguerie"
+    ],
+    "actif": true
+  },
+  {
+    "cle": "reparation",
+    "labelNav": "Réparations",
+    "label": "Réparation de toiture",
+    "labelCourt": "Réparation de toiture",
+    "accroche": "Tuiles cassées, faîtage descellé, infiltration après une tempête : intervention rapide pour remettre le toit hors d'eau.",
+    "image": "/images/photos/reparation-toiture.webp",
+    "imageWidth": 337,
+    "imageHeight": 450,
+    "alt": "Réparation de toiture en cours sur une maison du Sud de l'Essonne",
+    "lien": "Réparer ma toiture",
+    "url91": "/reparation-de-toiture-dans-lessonne-91/",
+    "url45": "/couvreur-45/reparation-de-toiture-dans-le-loiret-45/",
+    "connexes": [
+      "renovation",
+      "zinguerie",
+      "nettoyage"
+    ],
+    "actif": true
+  },
+  {
+    "cle": "nettoyage",
+    "labelNav": "Nettoyage démoussage",
+    "label": "Nettoyage et démoussage de toiture",
+    "labelCourt": "Nettoyage de toiture",
+    "accroche": "Démoussage, brossage, traitement anti-mousse et hydrofuge : l'entretien qui évite la rénovation dix ans trop tôt.",
+    "image": "/images/photos/nettoyage-de-toiture-marvin-ribard-couvreur.webp",
+    "imageWidth": 540,
+    "imageHeight": 360,
+    "alt": "Nettoyage de toiture au jet par Marvin Ribard, artisan couvreur",
+    "lien": "Nettoyer et démousser mon toit",
+    "url91": "/nettoyage-et-demoussage-de-toiture/",
+    "url45": "/nettoyage-et-demoussage-de-toiture-dans-le-loiret-45/",
+    "connexes": [
+      "reparation",
+      "zinguerie",
+      "renovation"
+    ],
+    "actif": true
+  },
+  {
+    "cle": "isolation",
+    "labelNav": "Isolation",
+    "label": "Isolation de toiture",
+    "labelCourt": "Isolation de toiture",
+    "accroche": "Sarking, isolation des rampants ou des combles perdus : le poste qui pèse le plus lourd sur une facture de chauffage.",
+    "image": "/images/photos/velux-isolation-interieur.webp",
+    "imageWidth": 450,
+    "imageHeight": 300,
+    "alt": "Isolation intérieure de rampants de toiture autour d'une fenêtre de toit",
+    "lien": "Isoler ma toiture",
+    "url91": "/isolation-de-toiture/",
+    "url45": "/couvreur-45/isolation-de-toiture-dans-le-loiret/",
+    "connexes": [
+      "renovation",
+      "velux",
+      "nettoyage"
+    ],
+    "actif": false,
+    "_inactif": "Page non rédigée : le service reste dans les données mais n'est plus lié nulle part (menu, pied de page, cards). Repasser `actif` à true le jour où la page existe."
+  },
+  {
+    "cle": "zinguerie",
+    "labelNav": "Zinguerie",
+    "label": "Travaux de zinguerie",
+    "labelCourt": "Zinguerie",
+    "accroche": "Solins, noues, rives, abergements de cheminée : tous les points singuliers d'une toiture, là où l'eau s'invite en premier.",
+    "image": "/images/photos/travaux-de-zinguerie-marvin-ribard-couvreur.webp",
+    "imageWidth": 1000,
+    "imageHeight": 667,
+    "alt": "Travaux de zinguerie réalisés par Marvin Ribard, artisan couvreur zingueur",
+    "lien": "Voir mes travaux de zinguerie",
+    "url91": "/travaux-de-zinguerie/",
+    "url45": "/couvreur-45/travaux-de-zinguerie-dans-le-loiret/",
+    "connexes": [
+      "gouttieres",
+      "reparation",
+      "renovation"
+    ],
+    "actif": false,
+    "_inactif": "Page non rédigée : le service reste dans les données mais n'est plus lié nulle part (menu, pied de page, cards). Repasser `actif` à true le jour où la page existe."
+  },
+  {
+    "cle": "gouttieres",
+    "labelNav": "Gouttières",
+    "label": "Pose et remplacement de gouttières",
+    "labelCourt": "Gouttières",
+    "accroche": "Gouttières zinc, aluminium, cuivre ou PVC : pose, remplacement et réparation, avec la descente et les crochets qui vont avec.",
+    "image": "/images/photos/gouttieres-en-zinc-soudure.webp",
+    "imageWidth": 599,
+    "imageHeight": 450,
+    "alt": "Soudure d'une gouttière en zinc par un artisan couvreur zingueur",
+    "lien": "Poser ou remplacer mes gouttières",
+    "url91": "/pose-et-remplacement-de-gouttiere-dans-lessonne-91/",
+    "url45": "/couvreur-45/pose-de-gouttieres-dans-le-loiret/",
+    "connexes": [
+      "zinguerie",
+      "nettoyage",
+      "reparation"
+    ],
+    "actif": true
+  },
+  {
+    "cle": "velux",
+    "labelNav": "Velux",
+    "label": "Pose et remplacement de Velux",
+    "labelCourt": "Fenêtres de toit",
+    "accroche": "Création d'une trémie, reprise de chevron, pose de la fenêtre et de son raccord d'étanchéité : de la lumière sans fuite.",
+    "image": "/images/photos/double-fenetre-de-toit-velux.webp",
+    "imageWidth": 1000,
+    "imageHeight": 726,
+    "alt": "Double fenêtre de toit Velux posée sur une couverture en tuiles",
+    "lien": "Poser une fenêtre de toit",
+    "url91": "/pose-et-remplacement-de-velux-dans-l-essonne-91/",
+    "url45": "/pose-et-remplacement-de-velux-dans-le-loiret-45/",
+    "connexes": [
+      "isolation",
+      "renovation",
+      "zinguerie"
+    ],
+    "actif": false,
+    "_inactif": "Page non rédigée : le service reste dans les données mais n'est plus lié nulle part (menu, pied de page, cards). Repasser `actif` à true le jour où la page existe."
+  },
+  {
+    "cle": "bac-acier",
+    "labelNav": "Bac acier",
+    "label": "Toiture et bardage en bac acier",
+    "labelCourt": "Bac acier",
+    "accroche": "Simple peau, double peau ou panneau sandwich : la solution rapide et économique pour un garage, une dépendance ou un bâtiment agricole.",
+    "image": "/images/photos/pose-bardage-acier.webp",
+    "imageWidth": 1348,
+    "imageHeight": 900,
+    "alt": "Bardage en acier posé sur un bâtiment dans l'Essonne par Marvin Ribard",
+    "lien": "Découvrir le bac acier",
+    "url91": "/toiture-en-bac-acier-dans-lessonne-91/",
+    "url45": "/couvreur-45/toitures-bac-acier-dans-le-loiret-45/",
+    "connexes": [
+      "renovation",
+      "isolation",
+      "zinguerie"
+    ],
+    "actif": false,
+    "_inactif": "Page non rédigée : le service reste dans les données mais n'est plus lié nulle part (menu, pied de page, cards). Repasser `actif` à true le jour où la page existe."
+  }
+]

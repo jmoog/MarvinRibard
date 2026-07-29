@@ -1,0 +1,174 @@
+---
+/**
+ * URL conservée : /plan-du-site/
+ *
+ * Plan du site HTML, à ne pas confondre avec /sitemap-index.xml qui est
+ * destiné aux robots. Celui-ci est fait pour les visiteurs : il donne une vue
+ * d'ensemble en une page, et il rattrape les pages qu'aucun menu ne montre.
+ *
+ * Toutes les listes sont générées depuis les données : ajouter une commune
+ * dans villes.json ou passer un service à `actif` suffit à l'y faire figurer.
+ * Les services non rédigés n'apparaissent pas — pas de lien vers le vide.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+import villes from '../data/villes.json';
+import { breadcrumb } from '../lib/schemas';
+
+const title = 'Plan du site — Marvin Ribard Couverture';
+const description =
+  "Toutes les pages du site : prestations de couverture, communes d'intervention dans l'Essonne et le Loiret, contact et pages légales.";
+
+const actifs = services.filter((s) => s.actif);
+const villes91 = villes.filter((v) => !('dept' in v) || v.dept !== 45);
+const villes45 = villes.filter((v) => 'dept' in v && v.dept === 45);
+
+const blocs = [
+  {
+    titre: 'Les pages principales',
+    icone: 'maison',
+    liens: [
+      { url: '/', nom: "Accueil — couvreur dans l'Essonne (91)" },
+      { url: '/couvreur-45/', nom: 'Couvreur dans le Loiret (45)' },
+      { url: '/contact/', nom: 'Contact et devis gratuit' },
+    ],
+  },
+  {
+    titre: "Mes prestations dans l'Essonne",
+    icone: 'outil',
+    liens: actifs.map((s) => ({ url: s.url91, nom: s.label })),
+  },
+  {
+    titre: 'Mes prestations dans le Loiret',
+    icone: 'outil',
+    liens: actifs.map((s) => ({ url: s.url45, nom: s.label })),
+  },
+  {
+    titre: "Mes communes dans l'Essonne",
+    icone: 'epingle',
+    liens: villes91.map((v) => ({ url: v.url, nom: `Couvreur à ${v.nom} (${v.cp})` })),
+  },
+  {
+    titre: 'Mes communes dans le Loiret',
+    icone: 'epingle',
+    liens: villes45.map((v) => ({ url: v.url, nom: `Couvreur à ${v.nom} (${v.cp})` })),
+  },
+  {
+    titre: 'Informations légales',
+    icone: 'document',
+    liens: [
+      { url: '/mentions-legales/', nom: 'Mentions légales' },
+      { url: '/politique-de-confidentialite/', nom: 'Politique de confidentialité' },
+      { url: '/plan-du-site/', nom: 'Plan du site' },
+    ],
+  },
+];
+
+const total = blocs.reduce((n, b) => n + b.liens.length, 0);
+const extraSchemas = [breadcrumb([{ nom: 'Plan du site', url: '/plan-du-site/' }])];
+---
+<BaseLayout title={title} description={description} extraSchemas={extraSchemas}>
+  <FilAriane items={[{ nom: 'Plan du site', url: '/plan-du-site/' }]} />
+
+  <section class="section">
+    <div class="conteneur">
+      <h1>Plan du site</h1>
+      <p class="section__intro">
+        Les {total} pages du site, rangées par thème. Vous cherchez quelque chose
+        qui ne s'y trouve pas ? Appelez-moi au
+        {' '}<a href={`tel:${ent.telephoneLien}`}>{ent.telephone}</a>.
+      </p>
+
+      <div class="plan">
+        {blocs.map((b) => (
+          <section class="plan__bloc">
+            <h2>
+              <span class="plan__icone" aria-hidden="true">
+                {b.icone === 'maison' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/></svg>}
+                {b.icone === 'outil' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a3.5 3.5 0 0 0 4.6 4.6l-8.2 8.2a2.3 2.3 0 0 1-3.2-3.2z"/><path d="M14.5 6.5 17 4l3 3-2.5 2.5"/></svg>}
+                {b.icone === 'epingle' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>}
+                {b.icone === 'document' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>}
+              </span>
+              {b.titre}
+            </h2>
+            <ul>
+              {b.liens.map((l) => (
+                <li><a href={l.url}>{l.nom}</a></li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <p class="plan__robots">
+        Les moteurs de recherche, eux, utilisent le
+        {' '}<a href="/sitemap-index.xml">plan de site au format XML</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .plan {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    margin-top: 2.5rem;
+    align-items: start;
+  }
+  .plan__bloc {
+    background: var(--blanc);
+    border: 1px solid var(--gris-200);
+    border-radius: var(--rayon);
+    padding: 1.6rem 1.5rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .plan__bloc:hover { border-color: var(--rouge); box-shadow: var(--ombre); }
+  .plan__bloc h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.08rem;
+    color: var(--bleu);
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--rouge);
+    text-align: left;
+  }
+  .plan__icone {
+    flex-shrink: 0;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    background: var(--rouge-pale);
+    color: var(--rouge-fonce);
+    display: grid;
+    place-items: center;
+  }
+  .plan__icone svg { width: 1.15rem; height: 1.15rem; }
+  .plan__bloc ul { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+  .plan__bloc a {
+    color: var(--gris-700);
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    padding-left: 0.95rem;
+    font-size: 0.94rem;
+  }
+  .plan__bloc a::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--rouge);
+    font-weight: 700;
+  }
+  .plan__bloc a:hover { color: var(--rouge-fonce); text-decoration: underline; }
+  .plan__robots {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--gris-500);
+  }
+</style>

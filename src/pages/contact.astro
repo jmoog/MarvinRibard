@@ -1,0 +1,319 @@
+---
+/**
+ * URL conservée : /contact/
+ * =========================
+ * Page contact + demande de devis. C'est la page de conversion du site : tous
+ * les boutons « Demander un devis gratuit » y mènent.
+ *
+ * Le formulaire poste en JSON sur /api/devis (route SSR), qui envoie deux
+ * emails via l'API HTTPS de Brevo — un à l'artisan, un accusé au client — et
+ * filtre le spam en quatre couches. Voir src/pages/api/devis.ts.
+ *
+ * Prérendue en statique : seule la clé PUBLIQUE Turnstile y est injectée, au
+ * build. La clé secrète ne quitte jamais le serveur.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import EncartAdresse from '../components/EncartAdresse.astro';
+import AvisCarrousel from '../components/AvisCarrousel.astro';
+import IconeMobile from '../components/IconeMobile.astro';
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+import { breadcrumb } from '../lib/schemas';
+
+export const prerender = true;
+const turnstileSiteKey = process.env.TURNSTILE_SITE_KEY || '';
+
+const title = 'Devis gratuit — Marvin Ribard, artisan couvreur';
+const description =
+  "Décrivez votre projet de toiture et recevez un devis gratuit et détaillé. Réponse sous 48 h, déplacement offert dans le Sud de l'Essonne et le Nord du Loiret.";
+
+// Le <select> reprend toutes les prestations réellement exercées, y compris
+// celles dont la page n'est pas encore rédigée : un formulaire n'est pas de la
+// navigation, un client qui veut un Velux doit pouvoir le dire.
+// Les `value` sont les clés de services.json, reprises telles quelles dans
+// PRESTATION_LABELS côté API.
+const prestations = [
+  { value: 'urgence', label: 'Urgence : fuite ou infiltration en cours' },
+  ...services.map((s) => ({ value: s.cle, label: s.label })),
+  { value: 'autre', label: 'Autre / à préciser' },
+];
+
+const etapes = [
+  { titre: 'Vous décrivez votre besoin', texte: "Par téléphone ou avec le formulaire. Une photo du toit ou de la trace au plafond fait gagner du temps." },
+  { titre: 'Je vous rappelle sous 48 h', texte: "On convient d'un créneau pour que je passe voir la toiture. Le déplacement est offert." },
+  { titre: 'Je remets un devis détaillé', texte: 'Poste par poste, avec ce qui est nécessaire et ce qui peut attendre. Gratuit et sans engagement.' },
+];
+
+const extraSchemas = [breadcrumb([{ nom: 'Contact et devis gratuit', url: '/contact/' }])];
+---
+<BaseLayout title={title} description={description} extraSchemas={extraSchemas}>
+  <FilAriane items={[{ nom: 'Contact et devis gratuit', url: '/contact/' }]} />
+
+  <section class="section devis">
+    <div class="conteneur devis__grille">
+      <div class="devis__texte">
+        <h1>Contactez Marvin Ribard, votre artisan couvreur</h1>
+
+        <p class="devis__accroche">
+          Une fuite à traiter, un toit à entretenir, une couverture à refaire :
+          décrivez-moi ce que vous constatez et je vous rappelle. Le déplacement
+          et le devis sont <strong>gratuits et sans engagement</strong>.
+        </p>
+
+        <ul class="devis__coordonnees">
+          <li>
+            <IconeMobile />
+            <a href={`tel:${ent.telephoneLien}`}><strong>{ent.telephone}</strong></a>
+          </li>
+          <li>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+            <a href={`mailto:${ent.email}`}>{ent.email}</a>
+          </li>
+          <li>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
+            <span>{ent.horaires.libelle}<br /><small>{ent.horaires.urgence}</small></span>
+          </li>
+          <li>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            <span>{ent.zone.libelleLong}, dans un rayon de {ent.zone.rayonKm} km</span>
+          </li>
+        </ul>
+
+        <ol class="devis__etapes">
+          {etapes.map((e, i) => (
+            <li>
+              <span class="devis__etape-num">{i + 1}</span>
+              <div>
+                <strong>{e.titre}</strong>
+                <p>{e.texte}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="carte devis__formulaire">
+        <h2>Demander un devis gratuit</h2>
+        <p class="devis__formulaire-intro">
+          Tous les champs marqués sont nécessaires pour que je puisse vous rappeler.
+        </p>
+
+        {turnstileSiteKey && (
+          <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+        )}
+
+        <form id="devis-form" name="devis" method="POST" action="/api/devis/" novalidate>
+          {/* Honeypot : hors écran, jamais rempli par un humain. */}
+          <p class="hp" aria-hidden="true">
+            <label>Ne pas remplir <input name="website" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          {/* Time-trap : horodatage posé au chargement, comparé côté serveur. */}
+          <input type="hidden" name="ts" id="f-ts" value="" />
+
+          <div class="champ">
+            <label for="f-nom">Votre nom <span aria-hidden="true">*</span></label>
+            <input id="f-nom" type="text" name="nom" required autocomplete="name" placeholder="Nom et prénom" />
+          </div>
+
+          <div class="champ champ--duo">
+            <div>
+              <label for="f-tel">Téléphone <span aria-hidden="true">*</span></label>
+              <input id="f-tel" type="tel" name="tel" required autocomplete="tel" placeholder="06 12 34 56 78" />
+            </div>
+            <div>
+              <label for="f-email">Email <span aria-hidden="true">*</span></label>
+              <input id="f-email" type="email" name="email" required autocomplete="email" placeholder="vous@exemple.fr" />
+            </div>
+          </div>
+
+          <div class="champ">
+            <label for="f-ville">Commune du chantier <span aria-hidden="true">*</span></label>
+            <input id="f-ville" type="text" name="ville" required autocomplete="address-level2" placeholder="Méréville, Étampes, Pithiviers…" />
+          </div>
+
+          <div class="champ">
+            <label for="f-prestation">Type d'intervention <span aria-hidden="true">*</span></label>
+            <select id="f-prestation" name="prestation" required>
+              <option value="">— Choisissez une prestation —</option>
+              {prestations.map((p) => <option value={p.value}>{p.label}</option>)}
+            </select>
+          </div>
+
+          <div class="champ">
+            <label for="f-message">Décrivez votre demande</label>
+            <textarea id="f-message" name="message" rows="4" placeholder="Ex. : trace d'humidité au plafond depuis cet automne, maison de plain-pied, toiture en tuile plate…"></textarea>
+          </div>
+
+          {turnstileSiteKey && (
+            <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light" data-language="fr"></div>
+          )}
+
+          <button type="submit" id="devis-submit" class="btn btn--rouge btn--grand devis__envoyer">
+            Envoyer ma demande
+          </button>
+          <p id="devis-status" role="status" aria-live="polite"></p>
+
+          <p class="devis__rgpd">
+            Vos coordonnées servent uniquement à traiter votre demande et ne sont
+            transmises à personne. Voir la
+            {' '}<a href="/politique-de-confidentialite/">politique de confidentialité</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <EncartAdresse siege={true} />
+
+  <AvisCarrousel titre="Ils ont commencé par un devis, eux aussi" avisIndex={[0, 6, 10, 15]} />
+</BaseLayout>
+
+<style>
+  .devis__grille { display: grid; gap: 3rem; align-items: start; }
+  @media (min-width: 980px) {
+    .devis__grille { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  }
+  .devis__texte h1 { text-align: left; }
+  .devis__accroche { font-size: 1.08rem; margin-top: 1rem; }
+
+  .devis__coordonnees { list-style: none; padding: 0; margin-top: 1.8rem; display: grid; gap: 0.9rem; }
+  .devis__coordonnees li { display: flex; align-items: flex-start; gap: 0.8rem; }
+  .devis__coordonnees .icone { width: 1.3rem; height: 1.3rem; color: var(--rouge); flex-shrink: 0; margin-top: 0.2rem; }
+  .devis__coordonnees a { color: var(--bleu); text-decoration: none; font-weight: 600; }
+  .devis__coordonnees a:hover { color: var(--rouge); text-decoration: underline; }
+  .devis__coordonnees small { color: var(--gris-500); }
+
+  /* Les trois étapes : ce qui se passe après l'envoi du formulaire. */
+  .devis__etapes { list-style: none; padding: 0; margin-top: 2.2rem; display: grid; gap: 1.2rem; }
+  .devis__etapes li { display: flex; gap: 1rem; align-items: flex-start; }
+  .devis__etape-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: var(--blanc);
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+    font-size: 0.95rem;
+  }
+  .devis__etapes strong { color: var(--bleu); }
+  .devis__etapes p { margin: 0.15rem 0 0; font-size: 0.94rem; color: var(--gris-700); }
+
+  .devis__formulaire { padding: 2rem; }
+  .devis__formulaire:hover { transform: none; box-shadow: var(--ombre); }
+  .devis__formulaire h2 { font-size: 1.35rem; text-align: left; }
+  .devis__formulaire-intro { color: var(--gris-500); font-size: 0.92rem; margin-block: 0.35rem 1.5rem; }
+
+  /* Honeypot : sorti du flux, invisible et non focusable au clavier. */
+  .hp { position: absolute; left: -9999px; }
+
+  .champ { margin-bottom: 1.1rem; }
+  .champ--duo { display: grid; gap: 1.1rem; }
+  @media (min-width: 560px) { .champ--duo { grid-template-columns: 1fr 1fr; } }
+  .champ label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 0.35rem; color: var(--gris-700); }
+  .champ label span { color: var(--rouge); }
+  .champ input,
+  .champ select,
+  .champ textarea {
+    width: 100%;
+    padding: 0.7em 1em;
+    border: 1px solid var(--gris-200);
+    border-radius: var(--rayon);
+    font: inherit;
+    /* 16 px minimum : en dessous, iOS zoome tout seul sur le champ au focus. */
+    font-size: 1rem;
+    color: var(--noir);
+    background: var(--blanc);
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .champ input:focus,
+  .champ select:focus,
+  .champ textarea:focus {
+    outline: none;
+    border-color: var(--rouge);
+    box-shadow: 0 0 0 3px rgba(232, 145, 45, 0.25);
+  }
+  .champ input[aria-invalid='true'],
+  .champ select[aria-invalid='true'] { border-color: #c0392b; }
+  .champ textarea { resize: vertical; min-height: 110px; }
+
+  .cf-turnstile { margin-bottom: 1.1rem; }
+  .devis__envoyer { width: 100%; }
+  .devis__envoyer:disabled { opacity: 0.55; cursor: not-allowed; }
+  #devis-status { font-size: 0.92rem; margin-top: 0.8rem; }
+  .devis__rgpd { font-size: 0.82rem; color: var(--gris-500); margin-top: 1.1rem; }
+</style>
+
+<script is:inline>
+(function () {
+  var form = document.getElementById('devis-form');
+  if (!form) return;
+  var status = document.getElementById('devis-status');
+  var submit = document.getElementById('devis-submit');
+  var tsField = document.getElementById('f-ts');
+
+  // Horodatage du chargement : le serveur rejette toute soumission arrivée en
+  // moins de 3 secondes, ce qu'aucun humain ne fait.
+  if (tsField) tsField.value = String(Date.now());
+
+  var REQUIS = ['nom', 'tel', 'email', 'ville', 'prestation'];
+
+  function erreur(message) {
+    status.style.color = '#c0392b';
+    status.textContent = message;
+    submit.disabled = false;
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Validation côté client : elle ne remplace pas celle du serveur, elle
+    // évite juste un aller-retour réseau pour rien.
+    for (var i = 0; i < REQUIS.length; i++) {
+      var champ = form.elements[REQUIS[i]];
+      if (!champ || !String(champ.value).trim()) {
+        champ && champ.setAttribute('aria-invalid', 'true');
+        champ && champ.focus();
+        erreur('Merci de compléter les champs marqués.');
+        return;
+      }
+      champ.removeAttribute('aria-invalid');
+    }
+    var email = form.elements['email'];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) {
+      email.setAttribute('aria-invalid', 'true');
+      email.focus();
+      erreur('Cette adresse email ne semble pas valide.');
+      return;
+    }
+
+    submit.disabled = true;
+    status.style.color = '';
+    status.textContent = 'Envoi en cours…';
+
+    try {
+      var fd = new FormData(form);
+      var payload = {};
+      fd.forEach(function (v, k) { payload[k] = v; });
+
+      var res = await fetch('/api/devis/', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      var data = await res.json().catch(function () { return {}; });
+
+      if (res.ok && data.ok) {
+        window.location.href = '/merci/';
+        return;
+      }
+      erreur(data.error || 'Une erreur est survenue. Merci de réessayer ou de m’appeler.');
+    } catch (err) {
+      erreur('Connexion impossible. Merci de réessayer ou de m’appeler au 06 22 62 09 86.');
+    }
+  });
+})();
+</script>

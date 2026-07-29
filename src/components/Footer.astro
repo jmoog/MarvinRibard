@@ -1,0 +1,238 @@
+---
+// Pied de page. La 5e colonne, qui n'était qu'une liste de liens
+// « Informations », est devenue un bloc d'appel à l'action : le pied de page
+// est le point où l'on relance un visiteur qui a tout lu sans décrocher.
+// Les liens obligatoires (mentions légales, confidentialité, plan du site)
+// sont descendus dans la barre légale.
+//
+// Pas de mention « © année » : en droit français la protection est acquise
+// dès la création, le symbole n'ajoute rien. Ce qui a une valeur légale et
+// figure ici, c'est la raison sociale, la forme juridique et le SIRET.
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+import villes from '../data/villes.json';
+import reviews from '../data/reviews.json';
+import IconeMobile from './IconeMobile.astro';
+import PastilleFleche from './PastilleFleche.astro';
+---
+<footer class="pied">
+  <div class="conteneur pied__grille">
+    <div class="pied__bloc pied__marque">
+      <img
+        src="/images/logo-marvin-ribard-couvreur.webp"
+        alt={`Logo ${ent.nom}`}
+        width="120"
+        height="120"
+        loading="lazy"
+      />
+      <p><strong>{ent.nom}</strong><br />Artisan couvreur dans {ent.zone.libelleLong}</p>
+
+      <!-- Adresse postale visible : elle n'apparaissait que dans les mentions
+           légales sur le site WordPress, ce qui pénalisait le SEO local. -->
+      <address class="pied__adresse">
+        {ent.adresse.rue}<br />
+        {ent.adresse.codePostal} {ent.adresse.ville}<br />
+        <a href={`tel:${ent.telephoneLien}`}>{ent.telephone}</a><br />
+        <a href={`mailto:${ent.email}`}>{ent.email}</a>
+      </address>
+
+      <p class="pied__horaires">{ent.horaires.libelle}</p>
+
+      <p class="pied__note" aria-label={`Note Google : ${reviews.note} sur 5 pour ${reviews.nombre} avis`}>
+        <span class="pied__etoiles" aria-hidden="true">★★★★★</span>
+        {reviews.note.toLocaleString('fr-FR')}/5 ·
+        {reviews.urlFiche
+          ? <a href={reviews.urlFiche} target="_blank" rel="noopener nofollow">{reviews.nombre} avis Google</a>
+          : <span>{reviews.nombre} avis Google</span>}
+      </p>
+    </div>
+
+    <nav class="pied__bloc" aria-label="Mes services dans l'Essonne">
+      <h2>Mes services dans l'Essonne</h2>
+      <ul>
+        {services.filter((s) => s.actif).map((s) => (
+          <li><a href={s.url91}>{s.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="pied__bloc" aria-label="Mes services dans le Loiret">
+      <h2>Mes services dans le Loiret</h2>
+      <ul>
+        <li><a href="/couvreur-45/">Couvreur dans le Loiret (45)</a></li>
+        {services.filter((s) => s.actif).map((s) => (
+          <li><a href={s.url45}>{s.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="pied__bloc" aria-label="Zone d'intervention">
+      <h2>Zone d'intervention</h2>
+      <ul>
+        {villes.filter((v) => !('dept' in v) || v.dept !== 45).map((v) => (
+          <li><a href={v.url}>Couvreur à {v.nom} ({v.cp})</a></li>
+        ))}
+      </ul>
+      <h2 class="pied__sous-titre">Dans le Loiret</h2>
+      <ul>
+        {villes.filter((v) => 'dept' in v && v.dept === 45).map((v) => (
+          <li><a href={v.url}>Couvreur à {v.nom} ({v.cp})</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="pied__bloc pied__cta">
+      <h2>Parlons de votre toiture</h2>
+      <p>
+        Décrivez-moi ce que vous constatez sur votre toit : je me déplace,
+        j'établis le diagnostic et je vous remets un devis gratuit.
+      </p>
+
+      <div class="pied__cta-actions">
+        <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge">
+          <IconeMobile />{ent.telephone}
+        </a>
+        <a href="/contact/" class="btn btn--contour">
+          Demander un devis<PastilleFleche />
+        </a>
+      </div>
+
+      <p class="pied__cta-horaires">
+        {ent.horaires.libelle}<br />{ent.horaires.urgence}
+      </p>
+    </div>
+  </div>
+
+  <div class="pied__legal">
+    <div class="conteneur pied__legal-int">
+      <p class="pied__identite">
+        <span>{ent.nom} — {ent.formeJuridique}</span>
+        <span>SIRET {ent.siretAffichage}</span>
+        {ent.assurance.decennaleAssureur && <span>Assurance décennale {ent.assurance.decennaleAssureur}</span>}
+      </p>
+
+      <ul class="pied__legal-liens">
+        <li><a href="/mentions-legales/">Mentions légales</a></li>
+        <li><a href="/politique-de-confidentialite/">Politique de confidentialité</a></li>
+        <li><a href="/plan-du-site/">Plan du site</a></li>
+        <!-- Obligation RGPD : le consentement doit être retirable aussi
+             facilement qu'il a été donné. Ce lien rouvre le bandeau (voir
+             CookieBanner.astro). -->
+        <li><a href="#cookies" data-cookies-ouvrir>Gérer les cookies</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .pied {
+    background: var(--bleu-fonce);
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: auto;
+    font-size: 0.92rem;
+  }
+  .pied__grille {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 3.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  @media (min-width: 1100px) {
+    /* La colonne CTA est la plus large : les deux boutons doivent tenir sur
+       une ligne chacun, sinon le pied de page a l'air à l'étroit. */
+    .pied__grille { grid-template-columns: 0.95fr 1.05fr 1.05fr 1fr 1.5fr; gap: 2.2rem; }
+  }
+
+  /* Titres de colonnes : pas de capitales ni de lettrage espacé — un simple
+     titre blanc souligné d'un filet orange. */
+  .pied__bloc h2 {
+    color: var(--blanc);
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--rouge);
+    display: inline-block;
+  }
+  .pied__bloc ul { list-style: none; padding: 0; display: grid; gap: 0.45rem; }
+  /* Second intitulé dans la colonne « Zone d'intervention » : les communes du
+     Loiret sont listées à part de celles de l'Essonne. */
+  .pied__sous-titre { margin-top: 1.4rem; }
+  .pied a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color var(--transition); }
+  .pied a:hover { color: var(--rouge); text-decoration: underline; }
+  /* Logo en blanc sur le fond bleu nuit du pied de page. Le WebP a un canal
+     alpha : brightness(0) écrase toutes les couleurs en noir, invert(1) les
+     repasse en blanc, la transparence est conservée. */
+  .pied__marque img {
+    height: 80px;
+    width: auto;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+  }
+  .pied__marque p { margin-block: 0.5rem; }
+  .pied__adresse { font-style: normal; margin-block: 0.8rem; line-height: 1.8; }
+  .pied__horaires { color: rgba(255, 255, 255, 0.7); font-size: 0.88rem; }
+  .pied__etoiles { color: var(--etoile); letter-spacing: 0.1em; }
+  .pied__note { font-weight: 600; color: var(--blanc); margin-top: 0.8rem; }
+
+  /* ── Bloc d'appel à l'action ──────────────────────────────────── */
+  .pied__cta {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--rayon);
+    padding: 1.6rem 1.5rem;
+    align-self: start;
+  }
+  .pied__cta h2 { margin-top: 0; }
+  .pied__cta p { margin: 0 0 1.2rem; color: rgba(255, 255, 255, 0.82); }
+  .pied__cta-actions { display: grid; gap: 0.7rem; }
+  .pied__cta-actions .btn {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.75em 1.1em;
+    white-space: nowrap;
+  }
+  .pied__cta-actions .btn:hover { text-decoration: none; }
+  .pied__cta-horaires {
+    margin: 1.1rem 0 0 !important;
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.62) !important;
+    line-height: 1.6;
+  }
+
+  /* ── Barre légale ─────────────────────────────────────────────── */
+  .pied__legal {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-block: 1.15rem;
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .pied__legal-int {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+  }
+  .pied__identite { margin: 0; display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
+  .pied__legal-liens {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.4rem;
+  }
+  .pied__legal a { color: rgba(255, 255, 255, 0.6); }
+
+  @media (max-width: 800px) {
+    .pied__grille { text-align: center; }
+    .pied__grille p, .pied__adresse { text-align: center; }
+    .pied__bloc h2 { text-align: center; }
+    .pied__bloc ul { justify-items: center; }
+    .pied__marque img { margin-inline: auto; }
+    .pied__legal-int { justify-content: center; text-align: center; }
+    .pied__identite, .pied__legal-liens { justify-content: center; }
+  }
+</style>

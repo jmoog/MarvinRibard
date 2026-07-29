@@ -1,0 +1,365 @@
+---
+/**
+ * Encart NAP (Nom · Adresse · Téléphone) — bloc de citation locale.
+ *
+ * Toutes les valeurs viennent de src/data/entreprise.json : c'est la source de
+ * vérité NAP du projet. Ne jamais réécrire l'adresse ou le téléphone en dur
+ * dans une page — la cohérence stricte entre le site, la fiche Google Business
+ * Profile et les annuaires est ce qui fait tenir le SEO local.
+ *
+ * Deux modes :
+ *   siege = true  → « c'est ici que je suis installé » (page Méréville, contact)
+ *   siege = false → « je me déplace depuis Méréville jusqu'à [ville] »
+ *
+ * LA CARTE — deux étages, pour ne pas payer le RGPD au chargement :
+ *   1. Par défaut : une IMAGE STATIQUE d'OpenStreetMap, hébergée sur le domaine
+ *      (public/images/plans/), avec l'épingle en surimpression CSS pile sur les
+ *      coordonnées du siège. Zéro requête tierce, zéro cookie, zéro JS.
+ *   2. Au clic sur « Carte interactive » : l'image est remplacée par l'embed
+ *      OpenStreetMap (zoom, déplacement, marqueur). La requête vers osm.org ne
+ *      part QU'APRÈS une action explicite du visiteur — c'est ce clic qui vaut
+ *      consentement, comme pour une vidéo YouTube en click-to-play.
+ *
+ * L'attribution « © OpenStreetMap » est obligatoire (licence ODbL) : ne pas la
+ * retirer, sur l'image statique comme sur l'embed.
+ *
+ * Le plan statique est généré une fois par ville depuis les tuiles OSM et
+ * recadré pour que le point soit EXACTEMENT au centre de l'image — c'est ce qui
+ * permet de poser l'épingle en `top:50%; left:50%` sans calcul.
+ */
+import ent from '../data/entreprise.json';
+import IconeMobile from './IconeMobile.astro';
+
+export interface Props {
+  /** Page du siège (Méréville) ou page d'une commune desservie */
+  siege?: boolean;
+  /** Nom de la commune de la page, si siege = false */
+  ville?: string;
+  /** Distance depuis Méréville, en km */
+  distanceKm?: number;
+  titre?: string;
+  /** Une phrase sous le titre. Laisser vide pour n'afficher que l'adresse. */
+  intro?: string;
+  /** Plan statique OSM recadré sur le point. Voir public/images/plans/. */
+  planSrc?: string;
+}
+
+const {
+  siege = false,
+  ville = '',
+  distanceKm,
+  titre,
+  intro,
+  planSrc = '/images/plans/plan-mereville.webp',
+} = Astro.props;
+
+// Emprise de l'image statique, reprise à l'identique pour l'embed OSM : la
+// carte interactive s'ouvre donc exactement sur le même cadrage.
+const DEMI_LON = 0.01073;
+const DEMI_LAT = 0.005347;
+const { latitude: lat, longitude: lon } = ent.geo;
+// arrondi à 6 décimales (~10 cm) : évite le bruit de virgule flottante dans l'URL
+const bbox = [lon - DEMI_LON, lat - DEMI_LAT, lon + DEMI_LON, lat + DEMI_LAT]
+  .map((v) => v.toFixed(6))
+  .join(',');
+const urlOsmEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lon}`;
+const urlOsmPage = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=16/${lat}/${lon}`;
+
+// Pas de phrase d'introduction par défaut : le titre et l'adresse suffisent.
+const introFinale = intro ?? '';
+
+const titreFinal =
+  titre ||
+  (siege
+    ? `Trouver votre artisan couvreur à ${ent.adresse.villeUsuelle}`
+    : `Votre artisan couvreur, basé à ${ent.adresse.villeUsuelle}, à quelques minutes de ${ville}`);
+---
+<section class="section encart-nap-section">
+  <div class="conteneur">
+    <div class="encart-nap">
+      <div class="encart-nap__infos">
+        <h2 class="encart-nap__titre">{titreFinal}</h2>
+
+        {introFinale && <p class="encart-nap__intro">{introFinale}</p>}
+
+        {/* L'adresse postale complète, en grand : c'est l'élément que le
+            visiteur ET Google doivent retenir de cette page. */}
+        <address class="encart-nap__adresse">
+          <span class="encart-nap__enseigne">{ent.nom}</span>
+          <span class="encart-nap__rue">{ent.adresse.rue}</span>
+          <span class="encart-nap__ville">
+            {ent.adresse.codePostal} {ent.adresse.ville}
+            <small>({ent.adresse.villeUsuelle})</small>
+          </span>
+        </address>
+
+        <ul class="encart-nap__lignes">
+          <li>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            <span>
+              {siege
+                ? `Siège de l'entreprise, ${ent.adresse.villeUsuelle} (${ent.adresse.codePostal})`
+                : `${distanceKm ? `${distanceKm} km` : 'À quelques minutes'} de ${ville} — intervention dans un rayon de ${ent.zone.rayonKm} km`}
+            </span>
+          </li>
+          <li>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
+            <span>{ent.horaires.libelle}</span>
+          </li>
+          <li>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+            <a href={`mailto:${ent.email}`}>{ent.email}</a>
+          </li>
+        </ul>
+
+        <div class="encart-nap__actions">
+          <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+            <IconeMobile />{ent.telephone}
+          </a>
+          <a
+            href={ent.reseaux.googleBusinessProfile}
+            class="btn btn--contour btn--grand"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Voir l'itinéraire
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <figure class="encart-nap__plan plan" data-plan data-embed={urlOsmEmbed}>
+        <div class="plan__cadre">
+          <img
+            class="plan__image"
+            src={planSrc}
+            alt={`Plan de situation : ${ent.adresse.rue}, ${ent.adresse.codePostal} ${ent.adresse.ville}`}
+            width="1000"
+            height="750"
+            loading="lazy"
+            decoding="async"
+          />
+
+          {/* Épingle : le plan est recadré pour que le siège tombe au centre */}
+          <span class="plan__pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s-7.5-6.1-7.5-12A7.5 7.5 0 0 1 19.5 10c0 5.9-7.5 12-7.5 12z"/><circle cx="12" cy="9.8" r="2.9" fill="#fff"/></svg>
+          </span>
+          <span class="plan__etiquette">
+            {ent.nom}<br /><strong>{ent.adresse.rue}</strong>
+          </span>
+
+          <button type="button" class="plan__activer" data-plan-activer>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>
+            Carte interactive
+          </button>
+        </div>
+
+        <figcaption class="plan__legende">
+          <span>Plan&nbsp;: <a href={urlOsmPage} target="_blank" rel="noopener noreferrer">© OpenStreetMap</a></span>
+          <span class="plan__note" data-plan-note>Le plan interactif charge une carte hébergée par OpenStreetMap.</span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .encart-nap-section { padding-block: clamp(2.5rem, 5vw, 4rem); }
+
+  .encart-nap {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+    background: var(--bleu-fonce);
+    color: var(--blanc);
+    border-radius: calc(var(--rayon) * 1.6);
+    padding: clamp(1.6rem, 4vw, 3rem);
+    box-shadow: var(--ombre-forte);
+  }
+  @media (min-width: 900px) {
+    .encart-nap { grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; }
+  }
+
+  .encart-nap__titre { color: var(--blanc); margin-bottom: 0.9rem; text-align: left; }
+  .encart-nap__intro { color: rgba(255, 255, 255, 0.82); margin-bottom: 1.6rem; }
+
+  /* Bloc adresse — l'élément le plus mis en avant de la page */
+  .encart-nap__adresse {
+    display: grid;
+    gap: 0.15rem;
+    font-style: normal;
+    border-left: 4px solid var(--rouge);
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  .encart-nap__enseigne {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--rouge);
+    letter-spacing: 0.01em;
+  }
+  .encart-nap__rue,
+  .encart-nap__ville {
+    font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .encart-nap__ville small {
+    font-size: 0.62em;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.65);
+    margin-left: 0.35em;
+  }
+
+  .encart-nap__lignes {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.8rem;
+  }
+  .encart-nap__lignes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.98rem;
+  }
+  .encart-nap__lignes .icone {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.18rem;
+    color: var(--rouge);
+  }
+  .encart-nap__lignes a { color: var(--blanc); }
+  .encart-nap__lignes a:hover { color: var(--rouge); }
+
+  .encart-nap__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+  .encart-nap__actions .btn { white-space: nowrap; }
+
+  /* ── Plan OpenStreetMap ──────────────────────────────────────── */
+  .plan { margin: 0; display: grid; gap: 0.55rem; }
+  .plan__cadre {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--rayon);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: #16345e;
+  }
+  .plan__image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .plan__pin {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* L'ancre de l'épingle est sa pointe, en bas : on remonte de 100 %. */
+    transform: translate(-50%, -100%);
+    color: var(--rouge);
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.45));
+    pointer-events: none;
+  }
+  .plan__pin svg { width: 46px; height: 46px; display: block; }
+  /* Halo pulsé discret sous l'épingle, pour l'accrocher à l'œil */
+  .plan__pin::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 26px;
+    height: 10px;
+    margin-left: -13px;
+    border-radius: 50%;
+    background: rgba(232, 145, 45, 0.35);
+  }
+
+  .plan__etiquette {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0.5rem);
+    background: var(--blanc);
+    color: var(--bleu);
+    font-size: 0.78rem;
+    line-height: 1.35;
+    text-align: center;
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+    white-space: nowrap;
+    pointer-events: none;
+    max-width: calc(100% - 1.5rem);
+  }
+  .plan__etiquette strong { display: block; font-size: 0.85rem; }
+
+  .plan__activer {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.5em 0.9em;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--bleu);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+    transition: background var(--transition), color var(--transition);
+  }
+  .plan__activer:hover { background: var(--rouge); color: var(--blanc); }
+  .plan__activer .icone { width: 1.05rem; height: 1.05rem; }
+
+  /* État chargé : l'iframe remplit le cadre, l'habillage statique disparaît */
+  .plan__cadre iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  .plan__legende {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .plan__legende a { color: rgba(255, 255, 255, 0.85); }
+  .plan__legende a:hover { color: var(--rouge); }
+  .plan.est-charge .plan__note { display: none; }
+
+  @media (max-width: 700px) {
+    .encart-nap__titre { text-align: center; }
+    .encart-nap__actions { justify-content: center; width: 100%; }
+    .encart-nap__actions .btn { flex: 1 1 100%; }
+  }
+</style>
+
+<script>
+  /**
+   * Carte interactive à la demande.
+   *
+   * Tant que le visiteur n'a pas cliqué, rien ne part vers openstreetmap.org :
+   * seule l'image statique du domaine est chargée. Le clic déclenche l'insertion
+   * de l'iframe — c'est l'équivalent d'un click-to-play vidéo, et ça évite
+   * d'avoir à conditionner la carte au bandeau cookies.
+   */
+  document.querySelectorAll('[data-plan]').forEach((plan) => {
+    const bouton = plan.querySelector('[data-plan-activer]');
+    const cadre = plan.querySelector('.plan__cadre');
+    const src = plan.getAttribute('data-embed');
+    if (!bouton || !cadre || !src) return;
+
+    bouton.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.title = 'Plan interactif OpenStreetMap du siège de Marvin Ribard Couverture';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      cadre.replaceChildren(iframe);
+      plan.classList.add('est-charge');
+    }, { once: true });
+  });
+</script>

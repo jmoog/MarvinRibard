@@ -1,0 +1,184 @@
+---
+// URL conservée : /mentions-legales/
+//
+// Corrections apportées par rapport à la version WordPress :
+//   — SIRET : 484343098400024 (15 chiffres, invalide) → 843 430 984 00024
+//   — forme juridique : « Affaire personnelle commerçant » → « Entrepreneur individuel »
+//   — title/meta : faute « M. Ribard MArvin », meta identique au title
+//   — URL du site écrite avec des espaces : « https:// marvin-ribard .fr/ »
+//   — pas de numéro RCS : l'entreprise n'y est PAS inscrite, elle relève du RNE
+//   — ajout : SIREN, code APE, statut micro-entreprise, décennale, médiateur,
+//     droit de rétractation, RGPD
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import ent from '../data/entreprise.json';
+import { breadcrumb } from '../lib/schemas';
+
+const title = 'Mentions légales — Marvin Ribard Couverture';
+const description =
+  "Mentions légales du site marvin-ribard.fr : éditeur, hébergeur, identifiants de l'entreprise Marvin Ribard Couverture, artisan couvreur à Méréville (91).";
+
+const extraSchemas = [breadcrumb([{ nom: 'Mentions légales', url: '/mentions-legales/' }])];
+
+// Champs en attente. Affichés comme des rappels visibles uniquement en
+// développement, pour ne jamais publier un bloc vide en production.
+const manquants = [
+  !ent.assurance.decennaleAssureur && "Assurance décennale : assureur et n° de police (obligation légale, art. L.243-2 du Code des assurances)",
+  !ent.mediateurConsommation.nom && "Médiateur de la consommation : nom, site et adresse (obligation légale, art. L.616-1 du Code de la consommation)",
+  "Statut TVA à confirmer : micro-entreprise en franchise en base (art. 293 B du CGI) ou assujettie ?",
+].filter(Boolean);
+---
+<BaseLayout title={title} description={description} extraSchemas={extraSchemas}>
+  <FilAriane items={[{ nom: 'Mentions légales', url: '/mentions-legales/' }]} />
+
+  <section class="section">
+    <div class="conteneur prose">
+      <h1>Mentions légales</h1>
+
+      {import.meta.env.DEV && manquants.length > 0 && (
+        <aside class="rappel-dev">
+          <p><strong>À compléter avant mise en ligne</strong> (visible uniquement en développement) :</p>
+          <ul>{manquants.map((m) => <li>{m}</li>)}</ul>
+        </aside>
+      )}
+
+      <h2>Éditeur du site</h2>
+      <p>
+        Le site <a href="https://marvin-ribard.fr/">marvin-ribard.fr</a> est édité par&nbsp;:
+      </p>
+      <p>
+        <strong>{ent.nomLegal}</strong>, exerçant sous le nom commercial <strong>{ent.nomCommercial}</strong><br />
+        {ent.formeJuridique}{ent.microEntreprise ? ' (micro-entreprise)' : ''}<br />
+        {ent.adresse.rue}<br />
+        {ent.adresse.codePostal} {ent.adresse.ville}<br />
+        Téléphone&nbsp;: <a href={`tel:${ent.telephoneLien}`}>{ent.telephone}</a><br />
+        Courriel&nbsp;: <a href={`mailto:${ent.email}`}>{ent.email}</a>
+      </p>
+
+      <h2>Identifiants de l'entreprise</h2>
+      <ul>
+        <li>SIREN&nbsp;: {ent.sirenAffichage}</li>
+        <li>SIRET (siège)&nbsp;: {ent.siretAffichage}</li>
+        <li>Code APE&nbsp;: {ent.immatriculation.codeApe} — {ent.immatriculation.libelleApe}</li>
+        <li>{ent.immatriculation.rneLibelle}</li>
+        <li>Non inscrit au Registre du commerce et des sociétés (RCS)</li>
+        {ent.tvaIntracommunautaire && (
+          <li>Numéro de TVA intracommunautaire&nbsp;: {ent.tvaIntracommunautaire}</li>
+        )}
+      </ul>
+
+      <h2>Directeur de la publication</h2>
+      <p>
+        {ent.nomExploitant}, en qualité de chef d'entreprise, est responsable du contenu
+        publié sur ce site.
+      </p>
+
+      <h2>Assurance professionnelle</h2>
+      {ent.assurance.decennaleAssureur ? (
+        <p>
+          Assurance de responsabilité civile décennale souscrite auprès de
+          {' '}<strong>{ent.assurance.decennaleAssureur}</strong>, police n°&nbsp;
+          {ent.assurance.decennalePolice}. Couverture géographique&nbsp;:
+          {' '}{ent.assurance.decennaleCouverture}.
+        </p>
+      ) : (
+        <p>
+          Les coordonnées de l'assurance de responsabilité civile décennale sont
+          communiquées sur simple demande, ainsi que sur chaque devis et facture.
+        </p>
+      )}
+
+      <h2>Médiation de la consommation</h2>
+      {ent.mediateurConsommation.nom ? (
+        <p>
+          Conformément à l'article L.616-1 du Code de la consommation, en cas de litige
+          non résolu directement, vous pouvez saisir gratuitement le médiateur de la
+          consommation&nbsp;: <strong>{ent.mediateurConsommation.nom}</strong>,
+          {' '}{ent.mediateurConsommation.adresse},
+          {' '}<a href={ent.mediateurConsommation.site} rel="noopener nofollow" target="_blank">{ent.mediateurConsommation.site}</a>.
+        </p>
+      ) : (
+        <p>
+          En cas de désaccord, contactez-moi d'abord directement&nbsp;: la très grande
+          majorité des différends se règle par un échange. Les coordonnées du médiateur
+          de la consommation compétent vous sont communiquées sur demande écrite.
+        </p>
+      )}
+
+      <h2>Hébergement</h2>
+      <p>
+        Le site est hébergé par <strong>{ent.hebergeur.nom}</strong><br />
+        {ent.hebergeur.adresse}
+      </p>
+
+      <h2>Conception et réalisation</h2>
+      <p>
+        <strong>{ent.conception.nom}</strong> —
+        {' '}<a href={`mailto:${ent.conception.email}`}>{ent.conception.email}</a>
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des éléments composant ce site — textes, photographies de chantiers,
+        logo, mise en page, code source — est protégé par le droit d'auteur. Les
+        photographies publiées représentent des chantiers réellement réalisés par
+        {' '}{ent.nom} et ne sont pas issues de banques d'images.
+      </p>
+      <p>
+        Toute reproduction, représentation ou adaptation, totale ou partielle, sur quelque
+        support que ce soit, est interdite sans autorisation écrite préalable. Une citation
+        courte accompagnée d'un lien vers la page d'origine reste possible.
+      </p>
+
+      <h2>Responsabilité</h2>
+      <p>
+        Les informations techniques présentées sur ce site ont une vocation d'information
+        générale. Elles ne remplacent pas un diagnostic réalisé sur place&nbsp;: l'état
+        réel d'une toiture ne s'apprécie qu'en montant dessus. Aucune information de ce
+        site ne constitue un engagement contractuel&nbsp;; seul le devis signé fait foi.
+      </p>
+      <p>
+        Ce site peut contenir des liens vers des sites tiers (mairies, services
+        d'urbanisme, fabricants). Ces sites ne sont pas sous mon contrôle et leur contenu
+        n'engage que leurs éditeurs.
+      </p>
+
+      <h2>Devis, travaux et rétractation</h2>
+      <p>
+        Les devis sont gratuits et sans engagement. Pour tout contrat conclu hors
+        établissement — c'est-à-dire signé chez vous — vous disposez d'un délai de
+        rétractation de quatorze jours à compter de la signature, conformément aux
+        articles L.221-18 et suivants du Code de la consommation. Ce délai peut être
+        renoncé expressément par écrit en cas d'intervention urgente que vous sollicitez,
+        par exemple une mise hors d'eau après un sinistre.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Le traitement des données transmises via le formulaire de contact est détaillé
+        dans la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.
+        Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et
+        d'opposition, exerçable à l'adresse
+        {' '}<a href={`mailto:${ent.email}`}>{ent.email}</a>.
+      </p>
+
+      <h2>Droit applicable</h2>
+      <p>
+        Les présentes mentions légales sont soumises au droit français. En cas de litige
+        et à défaut de résolution amiable, les tribunaux français sont seuls compétents.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .rappel-dev {
+    border: 2px dashed var(--rouge);
+    background: var(--rouge-pale);
+    border-radius: var(--rayon);
+    padding: 1.2rem 1.4rem;
+    margin-block: 1.5rem;
+  }
+  .rappel-dev p { margin-top: 0; }
+  .rappel-dev ul { margin-bottom: 0; }
+</style>

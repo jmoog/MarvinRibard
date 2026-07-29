@@ -1,0 +1,191 @@
+---
+/**
+ * Corps d'une page « Couvreur à [ville] ».
+ *
+ * Une seule implémentation pour les 11 communes : tout le texte vient de
+ * src/data/villes.json, aucune chaîne rédactionnelle n'est écrite ici. Les
+ * règles et les pools de formulations sont dans
+ * src/data/README-redaction-villes.md.
+ *
+ * STRUCTURE FIGÉE PAR LE BRIEF CLIENT (29/07/2026)
+ *   hero (H1 + intro brève + 3 puces) → réassurance → [bloc adresse + plan,
+ *   UNIQUEMENT sur la page du siège] → 4 avis → cards services →
+ *   CTA portrait → communes voisines
+ *
+ * Volontairement absents : FAQ · architecture locale, patrimoine, ABF · climat.
+ * Aucun eyebrow : un bloc = un titre.
+ *
+ * Règle de contenu : hors page du siège, une page ville ne parle QUE de sa
+ * commune — ni du département, ni de Méréville, ni de carte.
+ */
+import FilAriane from './FilAriane.astro';
+import EncartAdresse from './EncartAdresse.astro';
+import CtaArtisan from './CtaArtisan.astro';
+import AvisCarrousel from './AvisCarrousel.astro';
+import IconeMobile from './IconeMobile.astro';
+import PastilleFleche from './PastilleFleche.astro';
+import ent from '../data/entreprise.json';
+import services from '../data/services.json';
+import villes from '../data/villes.json';
+import reviews from '../data/reviews.json';
+
+export interface Props {
+  ville: (typeof villes)[number];
+}
+const { ville } = Astro.props;
+
+const siege = 'siege' in ville && ville.siege === true;
+const estLoiret = 'dept' in ville && ville.dept === 45;
+
+const parCle = new Map(services.map((s) => [s.cle, s]));
+// Les cards du silo Loiret pointent vers les pages /couvreur-45/, pas vers
+// leurs jumelles de l'Essonne.
+const lien = (s: (typeof services)[number]) => (estLoiret ? s.url45 : s.url91);
+
+// Les 3 premières cards sont toujours nettoyage → rénovation → réparation, avec
+// un texte réécrit pour la commune. Les suivantes reprennent l'accroche
+// générique, dans un ordre qui change d'une ville à l'autre.
+const cartes = [
+  ...Object.entries(ville.services).map(([cle, accroche]) => ({
+    service: parCle.get(cle)!,
+    accroche,
+  })),
+  ...ville.servicesSuite.map((cle) => ({
+    service: parCle.get(cle)!,
+    accroche: parCle.get(cle)!.accroche,
+  })),
+  // Seuls les services dont la page existe sont liés (drapeau `actif`).
+  // Les trois premières cards restent nettoyage → rénovation → réparation,
+  // avec leur texte réécrit pour la commune ; la suite se réduit d'elle-même.
+].filter((c) => c.service && c.service.actif);
+
+// Les communes voisines restent DANS LE MÊME SILO : une page de l'Essonne ne
+// renvoie pas vers le Loiret et inversement. Le passage d'un département à
+// l'autre se fait par les pages piliers (/ et /couvreur-45/), reprises dans
+// l'en-tête et le pied de page.
+const deptCourant = 'dept' in ville ? ville.dept : 91;
+const voisines = villes.filter(
+  (v) => v.slug !== ville.slug && ('dept' in v ? v.dept : 91) === deptCourant,
+);
+
+// Élision devant les communes à initiale vocalique : « autour d'Étampes »,
+// pas « autour de Étampes ».
+const de = (nom: string) => (/^[AEIOUYÀÂÉÈÊÎÔÙÛ]/.test(nom) ? `d'${nom}` : `de ${nom}`);
+---
+<FilAriane
+  items={estLoiret
+    ? [{ nom: 'Couvreur dans le Loiret', url: '/couvreur-45/' }, { nom: `Couvreur à ${ville.nom}`, url: ville.url }]
+    : [{ nom: `Couvreur à ${ville.nom}`, url: ville.url }]}
+/>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════ -->
+<section class="hero hero--ville">
+  <div class="conteneur hero__grille duo">
+    <div class="hero__texte">
+      <h1>{ville.h1}</h1>
+
+      <p class="hero__accroche">{ville.intro}</p>
+
+      <ul class="hero__liste">
+        {ville.atouts.map((a) => <li>{a}</li>)}
+      </ul>
+
+      <div class="hero__actions">
+        <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+          <IconeMobile />{ent.telephone}
+        </a>
+        <a href="/contact/" class="btn btn--contour-bleu btn--grand">
+          Demander un devis gratuit<PastilleFleche />
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <figure class="hero__visuel">
+        <img
+          class="hero__photo"
+          src={ville.photo}
+          alt={`Chantier de couverture mené par ${ent.nomExploitant} à ${ville.nom}`}
+          width={ville.photoLargeur}
+          height={ville.photoHauteur}
+          fetchpriority="high"
+        />
+        <figcaption class="note-google-encart">
+          <span class="note-google-encart__ligne">
+            <svg class="note-google-encart__logo" viewBox="0 0 24 24" role="img" aria-label="Google">
+              <path fill="#4285F4" d="M23.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.87c2.27-2.09 3.56-5.17 3.56-8.87z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.96-1.08 7.94-2.91l-3.87-3a7.2 7.2 0 0 1-10.72-3.78H1.35v3.09A11.99 11.99 0 0 0 12 24z"/>
+              <path fill="#FBBC05" d="M5.35 14.31a7.2 7.2 0 0 1 0-4.6V6.62H1.35a12 12 0 0 0 0 10.77l4-3.08z"/>
+              <path fill="#EA4335" d="M12 4.77c1.77 0 3.35.61 4.6 1.8l3.43-3.43C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.35 6.62l4 3.09A7.2 7.2 0 0 1 12 4.77z"/>
+            </svg>
+            <span class="note-google-encart__etoiles" aria-hidden="true">★★★★★</span>
+          </span>
+          <span class="note-google-encart__texte">
+            Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google
+            {' · '}{reviews.nombre} avis
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="reassurance">
+  <ul class="reassurance__liste">
+    <li>{siege ? `Entreprise établie à ${ville.nom}` : `Intervention à ${ville.nom}`}</li>
+    <li>Devis gratuit et détaillé</li>
+    <li>{ent.horaires.libelle}</li>
+  </ul>
+</section>
+
+<!-- Adresse et plan : uniquement sur la commune du siège. Ailleurs, la page
+     ne parle que de sa propre ville — pas de carte, pas d'adresse d'un autre
+     bourg (le NAP complet reste dans le pied de page, sur toutes les pages). -->
+{siege && <EncartAdresse siege={true} />}
+
+<!-- ═══ AVIS — 4 par page, sélection propre à la commune ══════ -->
+<AvisCarrousel titre={ville.titreAvis} avisIndex={ville.avisIndex} />
+
+<!-- ═══ SERVICES ══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="conteneur">
+    <div class="entete-section">
+      <h2>{ville.titreServices}</h2>
+    </div>
+
+    <div class="grille-services">
+      {cartes.map(({ service, accroche }) => (
+        <a class="carte carte-service" href={lien(service)}>
+          <img
+            src={service.image}
+            alt={service.alt}
+            width={service.imageWidth}
+            height={service.imageHeight}
+            loading="lazy"
+          />
+          <div class="carte-service__corps">
+            <h3>{service.labelCourt} à {ville.nom}</h3>
+            <p>{accroche}</p>
+            <span class="carte-service__lien">{service.lien} →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA PORTRAIT ══════════════════════════════════════════ -->
+<CtaArtisan titre={ville.ctaTitre} texte={ville.ctaTexte} />
+
+<!-- ═══ COMMUNES VOISINES ═════════════════════════════════════ -->
+<section class="section">
+  <div class="conteneur">
+    <h2>J'interviens aussi autour {de(ville.nom)}</h2>
+
+    <ul class="nuage-villes villes-voisines">
+      {voisines.map((v) => (
+        <li><a href={v.url}>Couvreur à {v.nom}</a></li>
+      ))}
+    </ul>
+  </div>
+</section>

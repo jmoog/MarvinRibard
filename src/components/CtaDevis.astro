@@ -1,0 +1,79 @@
+---
+import ent from '../data/entreprise.json';
+import IconeMobile from './IconeMobile.astro';
+import PastilleFleche from './PastilleFleche.astro';
+
+export interface Props {
+  titre?: string;
+  texte?: string;
+  /** Précise le lieu dans le texte par défaut (ex. « à Étampes ») */
+  lieu?: string;
+}
+const {
+  lieu = '',
+  titre = `Besoin d'un couvreur${lieu ? ` ${lieu}` : ''} ?`,
+  texte = "Je me déplace pour établir un diagnostic et un devis gratuits. Vous savez ce qu'il y a à faire, ce que ça coûte, et vous décidez ensuite.",
+} = Astro.props;
+---
+<section class="cta-devis">
+  <div class="conteneur cta-devis__int">
+    <div class="cta-devis__texte">
+      <h2>{titre}</h2>
+      <p>{texte}</p>
+      <p class="cta-devis__horaires">{ent.horaires.libelle} · {ent.horaires.urgence}</p>
+    </div>
+    <div class="cta-devis__actions">
+      <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+        <IconeMobile />
+        {ent.telephone}
+      </a>
+      <a href="/contact/" class="btn btn--blanc btn--grand">Demander un devis gratuit<PastilleFleche /></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-devis {
+    background: var(--bleu);
+    color: var(--blanc);
+    padding-block: 3rem;
+  }
+  .cta-devis__int {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .cta-devis__texte { flex: 1 1 340px; }
+  .cta-devis h2 { color: var(--blanc); margin-bottom: 0.6rem; }
+  .cta-devis p { color: rgba(255, 255, 255, 0.9); margin: 0; }
+  .cta-devis__horaires {
+    margin-top: 0.7rem !important;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  .cta-devis__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+  .cta-devis__actions .icone { width: 1.15rem; height: 1.15rem; }
+  .cta-devis__actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    white-space: nowrap;
+  }
+  .btn--blanc {
+    background: var(--blanc);
+    color: var(--bleu);
+    border: 2px solid var(--blanc);
+  }
+  .btn--blanc:hover { background: transparent; color: var(--blanc); }
+
+  @media (max-width: 700px) {
+    .cta-devis__actions { width: 100%; flex-direction: column; }
+    .cta-devis__actions .btn { width: 100%; justify-content: center; }
+  }
+</style>

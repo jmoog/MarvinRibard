@@ -1,0 +1,41 @@
+---
+/**
+ * Route dynamique des pages villes du silo Loiret.
+ *
+ * Même composant que les communes de l'Essonne : seul le flag `dept: 45` de
+ * villes.json change, et il suffit à faire pointer les cards vers les pages
+ * services `/couvreur-45/`.
+ *
+ * `/couvreur-45/couvreur-a-malesherbes-45330/` est une URL historique, à
+ * conserver au caractère près. Les cinq autres communes sont nouvelles.
+ * `index.astro` (la page pilier) est une route statique : elle reste
+ * prioritaire sur celle-ci.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageVille from '../../components/PageVille.astro';
+import villes from '../../data/villes.json';
+import { breadcrumb, pageVille } from '../../lib/schemas';
+
+export function getStaticPaths() {
+  return villes
+    .filter((v) => 'dept' in v && v.dept === 45)
+    .map((v) => ({
+      // '/couvreur-45/couvreur-a-pithiviers-45300/' → 'couvreur-a-pithiviers-45300'
+      params: { ville: v.url.replace('/couvreur-45/', '').replace(/\/$/, '') },
+      props: { ville: v },
+    }));
+}
+
+const { ville } = Astro.props;
+
+const extraSchemas = [
+  breadcrumb([
+    { nom: 'Couvreur dans le Loiret', url: '/couvreur-45/' },
+    { nom: `Couvreur à ${ville.nom}`, url: ville.url },
+  ]),
+  pageVille(ville),
+];
+---
+<BaseLayout title={ville.title} description={ville.meta} extraSchemas={extraSchemas}>
+  <PageVille ville={ville} />
+</BaseLayout>

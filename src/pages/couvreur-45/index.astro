@@ -1,0 +1,211 @@
+---
+/**
+ * URL conservée : /couvreur-45/
+ * =============================
+ * Page pilier du silo Loiret. Elle reprend la STRUCTURE et le DESIGN de la page
+ * d'accueil, avec les toponymes basculés : Essonne → Loiret, 91 → 45, et des
+ * cards qui pointent vers les huit pages services `/couvreur-45/`.
+ *
+ * ⚠️ Les phrases, elles, ne sont PAS un copier-coller de l'accueil.
+ * Le diagnostic du site WordPress avait relevé des pages Loiret identiques à
+ * 90-97 % à leurs jumelles de l'Essonne — c'est le problème qu'on est en train
+ * de réparer. Même structure, même promesse, mais formulations distinctes.
+ *
+ * Règles éditoriales : aucun eyebrow · « dans le Loiret », jamais « en Loiret »
+ * · pas de FAQ · le mot « atelier » est banni.
+ * Mots-clés travaillés une fois chacun : couvreur Loiret · entreprise de
+ * couverture dans le Loiret · couvreur 45 · artisan couvreur zingueur.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import CtaDevis from '../../components/CtaDevis.astro';
+import AvisCarrousel from '../../components/AvisCarrousel.astro';
+import IconeMobile from '../../components/IconeMobile.astro';
+import PastilleFleche from '../../components/PastilleFleche.astro';
+import ent from '../../data/entreprise.json';
+import services from '../../data/services.json';
+import villes from '../../data/villes.json';
+import reviews from '../../data/reviews.json';
+import { breadcrumb, service as schemaService } from '../../lib/schemas';
+
+const title = 'Couvreur dans le Loiret (45) — Marvin Ribard, artisan';
+const description =
+  "Entretien, réparation et rénovation de toiture dans le Loiret par un artisan couvreur zingueur. Devis gratuit et sans engagement, 18 avis Google 5 étoiles.";
+
+const villes45 = villes.filter((v) => 'dept' in v && v.dept === 45);
+
+const extraSchemas = [
+  breadcrumb([{ nom: 'Couvreur dans le Loiret', url: '/couvreur-45/' }]),
+  schemaService({
+    nom: 'Travaux de couverture dans le Loiret',
+    description,
+    url: '/couvreur-45/',
+    zone: 'Loiret (45)',
+    type: 'Couverture, zinguerie et entretien de toiture',
+  }),
+];
+---
+<BaseLayout title={title} description={description} extraSchemas={extraSchemas}>
+  <FilAriane items={[{ nom: 'Couvreur dans le Loiret', url: '/couvreur-45/' }]} />
+
+  <section class="hero">
+    <div class="conteneur hero__grille duo">
+      <div class="hero__texte">
+        <h1>
+          Entreprise de couverture dans le Loiret (45)
+          <span class="hero__signature">Marvin Ribard</span>
+        </h1>
+
+        <p class="hero__accroche">
+          Une infiltration qui s'installe, des tuiles descellées, un toit
+          arrivé au bout de sa vie : ce sont des chantiers que je mène toute
+          l'année.
+          {' '}<strong>Artisan couvreur zingueur</strong> installé à
+          {' '}{ent.adresse.villeUsuelle}, à quelques minutes de la limite du
+          département, j'interviens dans tout le
+          {' '}<strong>Nord du Loiret (45)</strong> pour entretenir, réparer et
+          refaire votre couverture.
+        </p>
+
+        <ul class="hero__liste">
+          <li>Démoussage, traitement hydrofuge et entretien courant de la toiture</li>
+          <li>Zinguerie, gouttières et reprise des points où l'eau s'invite</li>
+          <li>Réfection complète : tuile pays, tuile mécanique, ardoise ou bac acier</li>
+        </ul>
+
+        <div class="hero__actions">
+          <a href={`tel:${ent.telephoneLien}`} class="btn btn--rouge btn--grand">
+            <IconeMobile />{ent.telephone}
+          </a>
+          <a href="/contact/" class="btn btn--contour-bleu btn--grand">
+            Demander un devis gratuit<PastilleFleche />
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        <figure class="hero__visuel">
+          <img
+            class="hero__photo"
+            src="/images/photos/pose-bardage-acier.webp"
+            alt="Toiture et bardage en bac acier posés par Marvin Ribard sur un chantier du Loiret"
+            width="1348"
+            height="900"
+            fetchpriority="high"
+          />
+          <figcaption class="note-google-encart">
+            <span class="note-google-encart__ligne">
+              <svg class="note-google-encart__logo" viewBox="0 0 24 24" role="img" aria-label="Google">
+                <path fill="#4285F4" d="M23.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.87c2.27-2.09 3.56-5.17 3.56-8.87z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.96-1.08 7.94-2.91l-3.87-3a7.2 7.2 0 0 1-10.72-3.78H1.35v3.09A11.99 11.99 0 0 0 12 24z"/>
+                <path fill="#FBBC05" d="M5.35 14.31a7.2 7.2 0 0 1 0-4.6V6.62H1.35a12 12 0 0 0 0 10.77l4-3.08z"/>
+                <path fill="#EA4335" d="M12 4.77c1.77 0 3.35.61 4.6 1.8l3.43-3.43C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.35 6.62l4 3.09A7.2 7.2 0 0 1 12 4.77z"/>
+              </svg>
+              <span class="note-google-encart__etoiles" aria-hidden="true">★★★★★</span>
+            </span>
+            <span class="note-google-encart__texte">
+              Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google
+              {' · '}{reviews.nombre} avis
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="reassurance">
+    <ul class="reassurance__liste">
+      <li>Devis gratuit et détaillé</li>
+      <li>Réponse sous 48 h</li>
+      <li>{ent.horaires.libelle}</li>
+    </ul>
+  </section>
+
+  <AvisCarrousel
+    titre="Les avis de mes clients dans le Loiret et aux alentours"
+    lieu="dans le Loiret"
+    ordre={6}
+    limite={9}
+  />
+
+  <!-- Section portrait — TEXTE PROVISOIRE. À rédiger indépendamment de celui de
+       l'accueil : deux versions du même paragraphe = deux pages jumelles, soit
+       exactement le défaut du site WordPress qu'on répare. -->
+  <section class="section portrait">
+    <div class="conteneur duo">
+      <div class="portrait__texte">
+        <h2>Marvin Ribard, votre couvreur dans le Nord du Loiret</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+          veniam, quis nostrud exercitation ullamco laboris.
+        </p>
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam.
+        </p>
+      </div>
+
+      <div class="portrait__media">
+        <img
+          src="/images/photos/portrait-marvin-ribard.webp"
+          alt={`${ent.nomExploitant}, artisan couvreur, devant son véhicule d'intervention`}
+          width="646"
+          height="750"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="entete-section">
+        <h2>Mes prestations de couvreur dans le Loiret</h2>
+      </div>
+
+      <p class="section__intro">
+        Du démoussage annuel à la réfection complète d'une couverture, voici les
+        chantiers que je réalise chez les particuliers du 45.
+        {' '}<a href="/">Je travaille également dans le Sud de l'Essonne</a>.
+      </p>
+
+      <div class="grille-services">
+        {services.filter((s) => s.actif).map((s) => (
+          <a class="carte carte-service" href={s.url45}>
+            <img src={s.image} alt={s.alt} width={s.imageWidth} height={s.imageHeight} loading="lazy" />
+            <div class="carte-service__corps">
+              <h3>{s.label}</h3>
+              <p>{s.accroche}</p>
+              <span class="carte-service__lien">{s.lien} →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="conteneur">
+      <h2>Ma zone d'intervention dans le Loiret</h2>
+      <p class="section__intro">
+        Je me déplace dans tout le Nord du département, dans un rayon d'environ
+        {' '}{ent.zone.rayonKm} km. Votre commune n'apparaît pas ci-dessous ?
+        Appelez-moi, elle est probablement dans mon secteur.
+      </p>
+
+      <ul class="nuage-villes">
+        {villes45.map((v) => (
+          <li><a href={v.url}>Couvreur à {v.nom}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaDevis lieu="dans le Loiret" />
+</BaseLayout>

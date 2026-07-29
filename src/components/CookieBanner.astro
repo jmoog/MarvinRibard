@@ -1,0 +1,201 @@
+---
+/**
+ * Bandeau de consentement — mesure d'audience Google Analytics 4.
+ *
+ * PRINCIPE : aucun script tiers n'est chargé avant un clic explicite sur
+ * « Accepter ». Le snippet gtag n'est PAS posé dans le <head> : le poser
+ * reviendrait à contacter googletagmanager.com et à déposer des cookies dès
+ * l'arrivée du visiteur, ce que la CNIL sanctionne. Il est injecté par le
+ * script ci-dessous, et seulement après consentement.
+ *
+ * Conformité visée (délibération CNIL n° 2020-091 et lignes directrices) :
+ *   · refuser est aussi simple qu'accepter — deux boutons, même taille, même
+ *     niveau, un seul clic chacun ;
+ *   · pas de croix de fermeture : fermer sans choisir ne vaut pas consentement,
+ *     autant ne pas offrir ce geste ambigu ;
+ *   · la poursuite de la navigation ne vaut pas consentement ;
+ *   · le choix est conservé 6 mois puis redemandé (recommandation CNIL) ;
+ *   · le choix est révocable à tout moment — lien « Gérer les cookies » dans
+ *     le pied de page, qui rouvre le bandeau ;
+ *   · en cas de refus, les cookies _ga déjà posés sont supprimés.
+ *
+ * Le bandeau ne s'affiche pas si GA_ID est vide : sans mesure, pas de cookie,
+ * donc pas de bandeau à imposer.
+ */
+const GA_ID = 'G-37YKY30DWJ';
+
+// Durée de validité du choix, en jours. 6 mois = recommandation CNIL.
+const DUREE_JOURS = 182;
+---
+{GA_ID && (
+  <>
+    <div class="cookies" data-cookies hidden role="dialog" aria-modal="false" aria-labelledby="cookies-titre">
+      <div class="conteneur cookies__int">
+        <div class="cookies__texte">
+          <p id="cookies-titre" class="cookies__titre">Cookies de mesure d'audience</p>
+          <p>
+            J'aimerais savoir combien de personnes consultent ce site et quelles
+            pages elles regardent, pour l'améliorer. Cette mesure utilise Google
+            Analytics et dépose des cookies. Rien n'est chargé tant que vous
+            n'avez pas accepté, et vous pouvez changer d'avis quand vous voulez.
+            {' '}<a href="/politique-de-confidentialite/">En savoir plus</a>
+          </p>
+        </div>
+
+        <div class="cookies__actions">
+          <button type="button" class="cookies__btn cookies__btn--refus" data-refuser>Refuser</button>
+          <button type="button" class="cookies__btn cookies__btn--accord" data-accepter>Accepter</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .cookies {
+        position: fixed;
+        inset-inline: 0;
+        bottom: 0;
+        z-index: 80;
+        background: var(--bleu-fonce);
+        color: rgba(255, 255, 255, 0.9);
+        padding-block: 1.1rem;
+        font-size: 0.9rem;
+        box-shadow: 0 -4px 22px rgba(18, 41, 76, 0.32);
+      }
+      .cookies__int {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.2rem;
+      }
+      .cookies__texte { flex: 1 1 340px; }
+      .cookies__titre {
+        font-weight: 700;
+        color: var(--blanc);
+        margin: 0 0 0.3rem;
+        font-size: 0.95rem;
+      }
+      .cookies p { margin: 0; line-height: 1.55; }
+      .cookies a { color: var(--blanc); }
+      .cookies a:hover { color: var(--rouge); }
+
+      .cookies__actions { display: flex; gap: 0.7rem; flex-shrink: 0; }
+
+      /* Les deux boutons ont EXACTEMENT la même taille, la même graisse et le
+         même contraste. Rendre le refus plus discret que l'acceptation est le
+         motif de non-conformité le plus fréquemment relevé par la CNIL. */
+      .cookies__btn {
+        font: inherit;
+        font-weight: 700;
+        font-size: 0.92rem;
+        padding: 0.7em 1.6em;
+        min-width: 8.5rem;
+        border-radius: var(--rayon);
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: background var(--transition), color var(--transition), border-color var(--transition);
+      }
+      .cookies__btn--refus {
+        background: var(--blanc);
+        color: var(--bleu-fonce);
+        border-color: var(--blanc);
+      }
+      .cookies__btn--refus:hover { background: transparent; color: var(--blanc); }
+      .cookies__btn--accord {
+        background: var(--rouge);
+        color: var(--blanc);
+        border-color: var(--rouge);
+      }
+      .cookies__btn--accord:hover { background: var(--rouge-fonce); border-color: var(--rouge-fonce); }
+
+      @media (max-width: 900px) {
+        /* Ne pas recouvrir la barre d'appel flottante */
+        .cookies { bottom: 3.4rem; }
+        .cookies__actions { width: 100%; }
+        .cookies__btn { flex: 1; min-width: 0; }
+      }
+    </style>
+
+    <script is:inline define:vars={{ GA_ID, DUREE_JOURS }}>
+      (() => {
+        var CLE = 'mr-consentement';
+        var banniere = document.querySelector('[data-cookies]');
+        if (!banniere) return;
+
+        function lire() {
+          try {
+            var brut = localStorage.getItem(CLE);
+            if (!brut) return null;
+            var o = JSON.parse(brut);
+            if (!o || !o.choix || !o.date) return null;
+            // Choix périmé : on redemande plutôt que de présumer.
+            var age = (Date.now() - new Date(o.date).getTime()) / 86400000;
+            if (age > DUREE_JOURS) return null;
+            return o.choix;
+          } catch (e) { return null; }
+        }
+
+        function ecrire(choix) {
+          try {
+            localStorage.setItem(CLE, JSON.stringify({ choix: choix, date: new Date().toISOString() }));
+          } catch (e) { /* navigation privée : le choix vaut pour la session */ }
+        }
+
+        // Chargement de GA4 — appelé UNIQUEMENT après un clic sur « Accepter ».
+        var charge = false;
+        function chargerAnalytics() {
+          if (charge) return;
+          charge = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied',
+          });
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+        }
+
+        // Refus : on efface les cookies _ga éventuellement déjà déposés
+        // (cas d'un visiteur qui avait accepté puis change d'avis).
+        function nettoyer() {
+          var domaine = location.hostname.replace(/^www\./, '');
+          document.cookie.split(';').forEach(function (c) {
+            var nom = c.split('=')[0].trim();
+            if (nom.indexOf('_ga') === 0 || nom === '_gid') {
+              document.cookie = nom + '=; Max-Age=0; path=/';
+              document.cookie = nom + '=; Max-Age=0; path=/; domain=.' + domaine;
+            }
+          });
+        }
+
+        function ouvrir() { banniere.hidden = false; }
+        function decider(choix) {
+          ecrire(choix);
+          banniere.hidden = true;
+          if (choix === 'accepte') chargerAnalytics();
+          else nettoyer();
+        }
+
+        banniere.querySelector('[data-accepter]').addEventListener('click', function () { decider('accepte'); });
+        banniere.querySelector('[data-refuser]').addEventListener('click', function () { decider('refuse'); });
+
+        // Lien « Gérer les cookies » du pied de page : rouvre le bandeau.
+        document.querySelectorAll('[data-cookies-ouvrir]').forEach(function (lien) {
+          lien.addEventListener('click', function (e) { e.preventDefault(); ouvrir(); });
+        });
+
+        var choix = lire();
+        if (choix === 'accepte') chargerAnalytics();
+        else if (choix !== 'refuse') ouvrir();
+      })();
+    </script>
+  </>
+)}

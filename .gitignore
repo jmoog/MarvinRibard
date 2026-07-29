@@ -1,0 +1,13 @@
+# dépendances et builds
+node_modules/
+dist/
+.astro/
+
+# environnement — ne jamais committer les clés
+.env
+.env.local
+.env.production
+
+# divers
+.DS_Store
+npm-debug.log*
