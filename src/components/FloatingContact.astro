@@ -49,10 +49,11 @@ const lienWhatsapp = `https://wa.me/${ent.telephoneUri.replace('+', '')}?text=${
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.4em;
-    padding: 0.9em 0.35em;
+    gap: 0.28em;
+    padding: 0.8em 0.2em;
     font-weight: 700;
-    font-size: 0.86rem;
+    font-size: clamp(0.66rem, 3vw, 0.8rem);
+    white-space: nowrap;
     text-decoration: none;
     color: var(--blanc);
   }
@@ -61,8 +62,8 @@ const lienWhatsapp = `https://wa.me/${ent.telephoneUri.replace('+', '')}?text=${
   .flottant__btn--whatsapp { background: var(--vert-whatsapp); }
   .flottant__btn--whatsapp:hover { background: var(--vert-whatsapp-fonce); }
   .flottant__btn--devis { background: var(--bleu); }
-  .flottant .icone { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
-  .flottant .icone--whatsapp { width: 1rem; height: 1.1rem; }
+  .flottant .icone { width: 0.95rem; height: 0.95rem; flex-shrink: 0; }
+  .flottant .icone--whatsapp { width: 0.85rem; height: 0.95rem; }
 
   @media (max-width: 900px) {
     .flottant { display: flex; }
@@ -70,13 +71,14 @@ const lienWhatsapp = `https://wa.me/${ent.telephoneUri.replace('+', '')}?text=${
     :global(body) { padding-bottom: 0; }
   }
 
-  /* Sous 360px, les 3 boutons sont trop serrés avec leur libellé : on ne
-     garde le texte que sur le bouton devis (l'action principale). */
-  @media (max-width: 360px) {
+  /* Sous 340px (très petits écrans, ex. iPhone SE 1re génération), les 3
+     libellés ne tiennent plus : on ne garde le texte que sur le bouton
+     devis (l'action principale). */
+  @media (max-width: 340px) {
     .flottant__btn--tel span,
     .flottant__btn--whatsapp span { display: none; }
     .flottant__btn--tel,
-    .flottant__btn--whatsapp { flex: 0 0 3.4em; }
+    .flottant__btn--whatsapp { flex: 0 0 3.2em; }
     .flottant__btn--devis { flex: 1; }
   }
 </style>
