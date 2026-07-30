@@ -213,6 +213,8 @@ h3 { font-size: 1.2rem; }
 .btn--contour { border-color: currentColor; color: var(--blanc); background: transparent; }
 .btn--contour:hover { background: rgba(255, 255, 255, 0.12); color: var(--blanc); }
 .btn--bleu { background: var(--bleu); color: var(--blanc); }
+.btn--whatsapp { background: var(--vert-whatsapp); color: var(--blanc); }
+.btn--whatsapp:hover { background: var(--vert-whatsapp-fonce); color: var(--blanc); }
 
 /* Variante contour sur fond CLAIR. `.btn--contour` ci-dessus est blanc et ne
    sert que sur les sections sombres : l'utiliser sur fond blanc rend le bouton

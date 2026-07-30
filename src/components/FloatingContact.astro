@@ -8,8 +8,7 @@ import IconeMobile from './IconeMobile.astro';
 import IconeWhatsapp from './IconeWhatsapp.astro';
 import PastilleFleche from './PastilleFleche.astro';
 
-const messageWhatsapp = 'Bonjour, je souhaite un devis pour des travaux de couverture.';
-const lienWhatsapp = `https://wa.me/${ent.telephoneUri.replace('+', '')}?text=${encodeURIComponent(messageWhatsapp)}`;
+const lienWhatsapp = `https://wa.me/${ent.telephoneUri.replace('+', '')}`;
 ---
 <div class="flottant" data-flottant>
   <a href={`tel:${ent.telephoneLien}`} class="flottant__btn flottant__btn--tel">
