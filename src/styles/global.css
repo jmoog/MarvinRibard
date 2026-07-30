@@ -16,6 +16,9 @@
   --rouge-fonce: #c4741a;     /* hover CTA */
   --rouge-pale: #fdf1e2;      /* fonds discrets, badges */
 
+  --vert-whatsapp: #25d366;       /* vert officiel WhatsApp — bouton de contact */
+  --vert-whatsapp-fonce: #1da851; /* hover du bouton WhatsApp */
+
   /* Accent ponctuel */
   --etoile: #f5b400;          /* étoiles d'avis (or) */
 
