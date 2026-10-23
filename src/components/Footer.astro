@@ -45,6 +45,11 @@ import PastilleFleche from './PastilleFleche.astro';
           ? <a href={reviews.urlFiche} target="_blank" rel="noopener nofollow">{reviews.nombre} avis Google</a>
           : <span>{reviews.nombre} avis Google</span>}
       </p>
+
+      <a href="https://local-place.fr/entreprise/marvin-ribard/" class="btn btn--contour pied__avis" target="_blank" rel="noopener">
+        <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+        Mes avis sur Local Place
+      </a>
     </div>
 
     <nav class="pied__bloc" aria-label="Mes services dans l'Essonne">
@@ -175,6 +180,8 @@ import PastilleFleche from './PastilleFleche.astro';
   .pied__horaires { color: rgba(255, 255, 255, 0.7); font-size: 0.88rem; }
   .pied__etoiles { color: var(--etoile); letter-spacing: 0.1em; }
   .pied__note { font-weight: 600; color: var(--blanc); margin-top: 0.8rem; }
+  .pied .pied__avis { margin-top: 0.6rem; font-size: 0.9rem; padding: 0.6em 1.1em; color: var(--blanc); border-color: rgba(255, 255, 255, 0.45); }
+  .pied .pied__avis:hover { color: var(--blanc); text-decoration: none; border-color: var(--blanc); }
 
   /* ── Bloc d'appel à l'action ──────────────────────────────────── */
   .pied__cta {
